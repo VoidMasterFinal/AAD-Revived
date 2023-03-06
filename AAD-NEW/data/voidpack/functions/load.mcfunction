@@ -16,6 +16,10 @@ scoreboard objectives add AttackCharge dummy
 scoreboard objectives add Health dummy
 scoreboard objectives add DeathAnimation dummy
 
+scoreboard objectives add upgradeFireWand crafted:blaze_rod
+scoreboard objectives add FireWandLVL dummy
+scoreboard objectives add FireWandUpgradedLVL dummy
+
 scoreboard objectives add EmberaxAttackCycle dummy
 scoreboard objectives add EmberaxAttackType dummy
 scoreboard objectives add EmberaxAimedFireAttack dummy

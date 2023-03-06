@@ -10,16 +10,33 @@ execute as @a at @s unless score @s FireballCD matches 0.. run scoreboard player
 execute as @a at @s if entity @s[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] unless entity @e[type=interaction,tag=firewandhitbox,distance=..3] run summon interaction ~ ~0.5 ~ {Tags:["firewandhitbox"],response:1b,height:2,width:2}
 execute as @e[type=interaction,tag=firewandhitbox] on target if score @s FireballCD matches ..0 run scoreboard players add @s Rclick 1
 execute as @a at @s if entity @s[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] if entity @e[type=interaction,tag=firewandhitbox,distance=..3] run tp @e[type=interaction,tag=firewandhitbox,limit=1,sort=nearest] ~ ~0.5 ~ facing ^ ^1 ^20
-execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 run summon armor_stand ~ ~1 ~ {Tags:["fireball","custom"],Invisible:1,Marker:1}
-# execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 run summon armor_stand ~ ~1 ~ {Tags:["fireball","custom"],Invisible:1,Marker:1} add fireball levels
+execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 if score @s FireWandLVL matches ..0 run summon armor_stand ~ ~1 ~ {Tags:["fireball","fireballLVL1","custom"],Invisible:1,Marker:1}
+execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 if score @s FireWandLVL matches 1..2 run summon armor_stand ~ ~1 ~ {Tags:["fireball","fireballLVL2","custom"],Invisible:1,Marker:1}
+execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 if score @s FireWandLVL matches 3..5 run summon armor_stand ~ ~1 ~ {Tags:["fireball","fireballLVL3","custom"],Invisible:1,Marker:1}
+execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 if score @s FireWandLVL matches 6..7 run summon armor_stand ~ ~1 ~ {Tags:["fireball","fireballLVL4","custom"],Invisible:1,Marker:1}
+execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 if score @s FireWandLVL matches 8.. run summon armor_stand ~ ~1 ~ {Tags:["fireball","fireballLVL5","custom"],Invisible:1,Marker:1}
 execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 run playsound minecraft:item.firecharge.use ambient @a ~ ~1 ~ 6 1
-execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 run scoreboard players set @s FireballCD 100
+execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 if score @s FireWandLVL matches ..1 run scoreboard players set @s FireballCD 100
+execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 if score @s FireWandLVL matches 2..3 run scoreboard players set @s FireballCD 80
+execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. if score @s FireballCD matches ..0 if score @s FireWandLVL matches 4.. run scoreboard players set @s FireballCD 60
     # Fireball Mechanics
 scoreboard players add @e[type=armor_stand,tag=fireball] lifetime 1
 execute as @e[type=armor_stand,tag=fireball] at @s if score @s lifetime matches 1 run tp @s @p
-execute as @e[type=armor_stand,tag=fireball] at @s run tp @s ^ ^ ^0.4
-execute as @e[type=armor_stand,tag=fireball] at @s run particle flame ~ ~1 ~ 0.2 0.2 0.2 0.01 5 force
-execute as @e[type=armor_stand,tag=fireball] at @s run particle dust_color_transition 1 0.8 0 1 0.7 0 0 ~ ~1 ~ 0.15 0.15 0.15 0.05 30 force
+execute as @e[type=armor_stand,tag=fireballLVL1] at @s run tp @s ^ ^ ^0.3
+execute as @e[type=armor_stand,tag=fireballLVL2] at @s run tp @s ^ ^ ^0.45
+execute as @e[type=armor_stand,tag=fireballLVL3] at @s run tp @s ^ ^ ^0.6
+execute as @e[type=armor_stand,tag=fireballLVL4] at @s run tp @s ^ ^ ^0.75
+execute as @e[type=armor_stand,tag=fireballLVL5] at @s run tp @s ^ ^ ^0.9
+execute as @e[type=armor_stand,tag=fireballLVL1] at @s run particle flame ~ ~1 ~ 0.1 0.1 0.1 0.01 1 force
+execute as @e[type=armor_stand,tag=fireballLVL1] at @s run particle dust_color_transition 1 0.8 0 1 0.7 0 0 ~ ~1 ~ 0 0 0 0 3 force
+execute as @e[type=armor_stand,tag=fireballLVL2] at @s run particle flame ~ ~1 ~ 0.15 0.15 0.15 0.0125 2 force
+execute as @e[type=armor_stand,tag=fireballLVL2] at @s run particle dust_color_transition 1 0.8 0 1 0.7 0 0 ~ ~1 ~ 0.15 0.15 0.15 0.025 7 force
+execute as @e[type=armor_stand,tag=fireballLVL3] at @s run particle flame ~ ~1 ~ 0.2 0.2 0.2 0.015 3 force
+execute as @e[type=armor_stand,tag=fireballLVL3] at @s run particle dust_color_transition 1 0.8 0 1 0.7 0 0 ~ ~1 ~ 0.15 0.15 0.15 0.05 15 force
+execute as @e[type=armor_stand,tag=fireballLVL4] at @s run particle flame ~ ~1 ~ 0.25 0.25 0.25 0.0175 4 force
+execute as @e[type=armor_stand,tag=fireballLVL4] at @s run particle dust_color_transition 1 0.8 0 1 0.7 0 0 ~ ~1 ~ 0.15 0.15 0.15 0.075 30 force
+execute as @e[type=armor_stand,tag=fireballLVL5] at @s run particle flame ~ ~1 ~ 0.3 0.3 0.3 0.02 5 force
+execute as @e[type=armor_stand,tag=fireballLVL5] at @s run particle dust_color_transition 1 0.8 0 1 0.7 0 0 ~ ~1 ~ 0.25 0.25 0.25 0.1 45 force
 execute as @e[type=armor_stand,tag=fireball] at @s if score @s lifetime matches 150.. run particle end_rod ~ ~1 ~ 0.1 0.1 0.1 0.4 40 force
 execute as @e[type=armor_stand,tag=fireball] at @s if score @s lifetime matches 150.. run playsound block.redstone_torch.burnout ambient @a ~ ~1 ~ 4 0.7
 execute as @e[type=armor_stand,tag=fireball] at @s if score @s lifetime matches 150.. run kill @s
@@ -29,20 +46,41 @@ execute as @e[type=armor_stand,tag=fireball] at @s unless block ~ ~1 ~ air run k
 execute as @e[type=armor_stand,tag=fireball] at @s if entity @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display,distance=..1.5] run tag @s add fireballhit
 execute as @e[type=armor_stand,tag=fireballhit] at @s run particle lava ~ ~1.2 ~ 0.1 0.1 0.1 0.4 40 force
 execute as @e[type=armor_stand,tag=fireballhit] at @s run playsound block.redstone_torch.burnout ambient @a ~ ~1 ~ 4 0.7
-execute as @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display] if entity @e[type=armor_stand,tag=fireballhit,distance=..1.5] run damage @s 6 minecraft:in_fire by @s
+
+execute as @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display] at @s if entity @e[type=armor_stand,tag=fireballLVL1,distance=..1.5] run damage @s 6 minecraft:in_fire
+execute as @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display] at @s if entity @e[type=armor_stand,tag=fireballLVL2,distance=..1.5] run damage @s 8 minecraft:in_fire
+execute as @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display] at @s if entity @e[type=armor_stand,tag=fireballLVL3,distance=..1.5] run damage @s 12 minecraft:in_fire
+execute as @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display] at @s if entity @e[type=armor_stand,tag=fireballLVL4,distance=..1.5] run damage @s 14 minecraft:in_fire
+execute as @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display] at @s if entity @e[type=armor_stand,tag=fireballLVL5,distance=..1.5] run damage @s 18 minecraft:in_fire
 execute as @e[type=armor_stand,tag=fireballhit] at @s run scoreboard players add @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display,distance=..1.5] Burning 100
+execute as @e[type=armor_stand,tag=fireballhit] at @s if entity @a[scores={FireWandLVL=5..}] run scoreboard players add @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display,distance=..1.5] Burning 80
+execute as @e[type=armor_stand,tag=fireballhit] at @s if entity @a[scores={FireWandLVL=7..}] run scoreboard players add @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display,distance=..1.5] Burning 40
+execute as @e[type=armor_stand,tag=fireballhit] at @s if entity @a[scores={FireWandLVL=9..}] run scoreboard players add @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display,distance=..1.5] Burning 60
 execute as @e[type=armor_stand,tag=fireballhit] at @s run kill @s
     # Fireball Cooldown
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireballCD matches ..0 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":". . . . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireballCD matches 1..20 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I . . . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireballCD matches 21..40 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I . . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireballCD matches 41..60 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireballCD matches 61..80 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireballCD matches 81.. run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I I","color":"green"},{"text":" ]","color":"gold"}]
+execute as @e[type=interaction,tag=firewandhitbox] on attacker if score @s FireWandLVL matches 10.. run scoreboard players add @s Lclick 1
+execute as @e[type=interaction,tag=firewandhitbox] on attacker if score @s FireWandLVL matches 10.. if score @s Lclick matches 1.. run scoreboard players remove @s FireballCD 20
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches ..0 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":". . . . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 1..20 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I . . . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 21..40 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I . . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 41..60 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 61..80 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 81.. run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I I","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches ..0 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":". . . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 1..20 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I . . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 21..40 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 41..60 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 61..80 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches ..0 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":". . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches 1..20 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches 21..40 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches 41..60 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I","color":"green"},{"text":" ]","color":"gold"}]
 execute as @a at @s if score @s FireballCD matches 1.. run scoreboard players remove @s FireballCD 1
     # Fireball Score Cleanup
 execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. run kill @e[type=interaction,tag=firewandhitbox]
 execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. run scoreboard players set @s Rclick 0
+execute as @e[type=interaction,tag=firewandhitbox] on attacker if score @s Lclick matches 1.. run kill @e[type=interaction,tag=firewandhitbox]
+execute as @e[type=interaction,tag=firewandhitbox] on attacker if score @s Lclick matches 1.. run scoreboard players set @s Lclick 0
 execute as @a at @s unless entity @p[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}},distance=..3] run kill @e[type=interaction,tag=firewandhitbox,distance=..3]
 
 
@@ -307,12 +345,45 @@ execute as @e[type=armor_stand,tag=dragonoidfirebreath] at @s if score @s lifeti
 execute as @e[type=armor_stand,tag=dragonoidfirebreath] at @s run tp @s ^ ^ ^0.3
 
 
+    # Wand Upgrader
+scoreboard players add @e[type=armor_stand,tag=wandupgrader] lifetime 1
+execute as @e[type=armor_stand,tag=wandupgrader] at @s if score @s lifetime matches 1 run setblock ~ ~ ~ smithing_table
+execute as @e[type=armor_stand,tag=wandupgrader] at @s unless entity @e[type=block_display,tag=wandupgradervisuals,distance=..0.781] run summon block_display ~-0.55 ~ ~-0.55 {Tags:["wandupgradervisuals"],block_state:{Name:"sculk_shrieker"},transformation:[1.1f,0f,0f,0f,0f,1.1f,0f,0f,0f,0f,1.1f,0f,0f,0f,0f,1f],brightness:{sky:15,block:15}}
+execute as @e[type=armor_stand,tag=wandupgrader] at @s unless entity @e[type=block_display,tag=wandupgradervisuals2,distance=..0.781] run summon block_display ~-0.3 ~0.55 ~-0.3 {Tags:["wandupgradervisuals2"],block_state:{Name:"amethyst_block"},transformation:[0.6f,0f,0f,0f,0f,0.6f,0f,0f,0f,0f,0.6f,0f,0f,0f,0f,1f],brightness:{sky:15,block:15}}
+execute as @e[type=armor_stand,tag=wandupgrader] at @s unless entity @e[type=block_display,tag=wandupgradervisuals3,distance=..0.781] run summon block_display ~-0.525 ~ ~-0.525 {Tags:["wandupgradervisuals3"],block_state:{Name:"spawner"},transformation:[1.05f,0f,0f,0f,0f,1.01f,0f,0f,0f,0f,1.05f,0f,0f,0f,0f,1f],brightness:{sky:15,block:15}}
+execute as @e[type=armor_stand,tag=wandupgrader] at @s if block ~ ~ ~ air run kill @e[type=block_display,tag=wandupgradervisuals,distance=..0.781]
+execute as @e[type=armor_stand,tag=wandupgrader] at @s if block ~ ~ ~ air run kill @e[type=block_display,tag=wandupgradervisuals2,distance=..0.781]
+execute as @e[type=armor_stand,tag=wandupgrader] at @s if block ~ ~ ~ air run kill @e[type=block_display,tag=wandupgradervisuals3,distance=..0.781]
+execute as @e[type=armor_stand,tag=wandupgrader] at @s if block ~ ~ ~ air run particle smoke ~ ~0.5 ~ 0.5 0.5 0.5 0.01 100 force
+execute as @e[type=armor_stand,tag=wandupgrader] at @s if block ~ ~ ~ air run kill @s
+    # Fire Wand
+execute as @a at @s unless score @s FireWandLVL matches 0.. run scoreboard players set @s FireWandLVL 0
+scoreboard players set @a FireWandUpgradedLVL 1
+execute as @a at @s run scoreboard players operation @s FireWandUpgradedLVL += @s FireWandLVL
+execute as @a at @s if score @s upgradeFireWand matches 1.. run stopsound @a * block.smithing_table.use
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 1..8 run tellraw @a [{"text":"Player ","color":"gold"},{"selector":"@s","color":"#AFFF24"},{"text":" upgraded ","color":"gold"},{"text":"Fire Wand lvl.","color":"aqua"},{"score":{"name":"@s","objective":"FireWandLVL"},"color":"aqua"},{"text":" -> ","color":"green"},{"text":"Fire Wand lvl.","color":"aqua"},{"score":{"name":"@s","objective":"FireWandUpgradedLVL"},"color":"aqua"}]
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 9 run tellraw @a [{"text":"Player ","color":"gold"},{"selector":"@s","color":"#AFFF24"},{"text":" upgraded ","color":"gold"},{"text":"Fire Wand lvl.","color":"aqua"},{"score":{"name":"@s","objective":"FireWandLVL"},"color":"aqua"},{"text":" -> ","color":"green"},{"text":"Fire Wand lvl.Max","color":"dark_purple"}]
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 10.. run tellraw @a {"text":"Canceled upgrade, item already max level!","color":"red"}
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 10.. run give @s amethyst_shard{display:{Name:'{"text":"Upgrade Crystal","color":"purple","italic":false}'},Enchantments:[{}]}
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches ..9 run playsound minecraft:item.trident.thunder ambient @a ~ ~1 ~ 4 1.5 1
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 10.. run playsound minecraft:block.note_block.didgeridoo ambient @a ~ ~1 ~ 3 0
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 10.. run playsound minecraft:block.note_block.didgeridoo ambient @a ~ ~1 ~ 3 0
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 1..9 run scoreboard players add @s FireWandLVL 1
+execute as @a at @s if score @s upgradeFireWand matches 1.. run scoreboard players set @s upgradeFireWand 0
+execute as @a at @s if entity @s[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] if score @s FireWandLVL matches 10.. run tp @e[type=armor_stand,tag=maxFireVisuals,distance=..2] ~ ~ ~
+execute as @a at @s if entity @s[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] if score @s FireWandLVL matches 10.. unless entity @e[type=armor_stand,tag=maxFireVisuals,distance=..2] run summon armor_stand ~ ~ ~ {Tags:["maxFireVisuals"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=maxFireVisuals] at @s unless entity @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}},scores={FireWandLVL=10..},distance=..2] run kill @s
+execute as @e[type=armor_stand,tag=maxFireVisuals] at @s run tp @s ~ ~ ~ ~10 ~
+execute as @e[type=armor_stand,tag=maxFireVisuals] at @s run particle flame ^ ^1 ^2 0 0 0 0.01 5 force
+execute as @e[type=armor_stand,tag=maxFireVisuals] at @s run particle flame ^ ^1 ^-2 0 0 0 0.01 5 force
+
+
     # Overall Score Cleanup
 scoreboard players set @a Attack 0
 
 
 
-# execute as @e[type=interaction,tag=firewandhitbox] on attacker run scoreboard players add @s Lclick 1
 # playsound minecraft:item.trident.thunder hostile @a ~ ~1 ~ 1 1.6          Smite Spell Sound
 # playsound minecraft:item.trident.return hostile @a ~ ~1 ~ 1 0             Crystal Sound
 # playsound minecraft:block.respawn_anchor.charge hostile @a ~ ~1 ~ 5 0     Crystal Sound 2
+# Use goat horn for item??

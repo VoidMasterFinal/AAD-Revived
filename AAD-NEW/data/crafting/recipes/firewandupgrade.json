@@ -1,0 +1,12 @@
+{
+    "type": "smithing",
+        "base": {
+            "item": "blaze_rod"
+        },
+        "addition": {
+            "item": "minecraft:amethyst_shard"
+        },
+        "result": {
+            "item": "minecraft:blaze_rod"
+        }
+}
