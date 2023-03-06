@@ -210,10 +210,10 @@ execute as @e[tag=emberaxFire,type=armor_stand] at @s unless block ~ ~-1 ~ air u
 scoreboard players add @e[type=armor_stand,tag=fireTrail] lifetime 1
 execute as @e[type=armor_stand,tag=fireTrail] at @s run particle smoke ~ ~1 ~ 0.3 0.1 0.3 0 4 force
 execute as @e[type=armor_stand,tag=fireTrail] at @s run particle small_flame ~ ~1 ~ 0.3 0.1 0.3 0.05 4 force
-execute as @a at @s if entity @e[type=armor_stand,tag=fireTrail,distance=..1.7] run damage @s 3 minecraft:in_fire 
+execute as @a at @s if entity @e[type=armor_stand,tag=fireTrail,distance=..1.7] run damage @s 3 minecraft:hot_floor
 execute as @e[type=armor_stand,tag=fireTrail] at @s if score @s lifetime matches 200.. run kill @s
 execute as @a at @s if entity @e[tag=emberaxFire,type=armor_stand,distance=..2] run damage @s 6.5 minecraft:in_fire
-execute as @e[tag=emberaxFire,type=armor_stand] at @s if score @s lifetime matches 70.. run kill @s
+execute as @e[tag=emberaxFire,type=armor_stand] at @s if score @s lifetime matches 45.. run kill @s
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAimedFireAttack matches 100.. run scoreboard players set @s EmberaxAttackType 0
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAimedFireAttack matches 100.. run scoreboard players set @s EmberaxAimedFireAttack 0
     # Emberax Attack 2: Moving Fire Breath
@@ -376,6 +376,54 @@ execute as @e[type=armor_stand,tag=maxFireVisuals] at @s unless entity @a[nbt={S
 execute as @e[type=armor_stand,tag=maxFireVisuals] at @s run tp @s ~ ~ ~ ~10 ~
 execute as @e[type=armor_stand,tag=maxFireVisuals] at @s run particle flame ^ ^1 ^2 0 0 0 0.01 5 force
 execute as @e[type=armor_stand,tag=maxFireVisuals] at @s run particle flame ^ ^1 ^-2 0 0 0 0.01 5 force
+
+
+    # Undead Mage
+execute as @e[type=armor_stand,tag=summonundeadmage] at @s run summon skeleton ~ ~ ~ {OnGround:1b,NoGravity:0b,DeathLootTable:"minecraft:empty",LeftHanded:0b,PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:0b,Health:30f,Tags:["undeadmage","custom"],HandItems:[{id:"minecraft:stick",Count:1b,tag:{Enchantments:[{}]}},{id:"minecraft:amethyst_shard",Count:1b,tag:{display:{Name:'{"text":"Upgrade Crystal","color":"light_purple","italic":false}'},Enchantments:[{}]}}],HandDropChances:[0.000F,0.200F],ArmorItems:[{id:"minecraft:netherite_boots",Count:1b},{id:"minecraft:netherite_leggings",Count:1b},{id:"minecraft:netherite_chestplate",Count:1b},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:[I;-2090969427,-1858058365,-1425762194,836113187],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQ3MjZkOTQxMGJiNGJjODMwNjg3ZjA2MjhjZDdjNGVjMTU4YWNmNmI1NzQwM2E1NzYwZDE3NDc3Yjg0Njg2YSJ9fX0="}]}}}}],ArmorDropChances:[0.000F,0.000F,0.000F,0.000F],Attributes:[{Name:generic.max_health,Base:30}]}
+execute as @e[type=armor_stand,tag=summonundeadmage] at @s run playsound entity.blaze.ambient hostile @a ~ ~1 ~ 4 0
+execute as @e[type=armor_stand,tag=summonundeadmage] at @s run kill @s
+execute as @e[type=skeleton,tag=undeadmage] at @s run particle smoke ~ ~1 ~ 0.3 0.4 0.3 0 1 force
+execute as @e[type=skeleton,tag=undeadmage] at @s run playsound minecraft:particle.soul_escape ambient @a ~ ~1 ~ 1 0.7
+execute as @e[type=skeleton,tag=undeadmage] at @s if entity @p[gamemode=!creative,gamemode=!spectator,distance=12..16] unless entity @p[gamemode=!creative,gamemode=!spectator,distance=..12] run tp @s ^ ^ ^0.05 facing entity @p[gamemode=!creative,gamemode=!spectator]
+execute as @e[type=skeleton,tag=undeadmage] at @s if entity @p[gamemode=!creative,gamemode=!spectator,distance=16..20] unless entity @p[gamemode=!creative,gamemode=!spectator,distance=..12] run tp @s ^ ^ ^0.1 facing entity @p[gamemode=!creative,gamemode=!spectator]
+execute as @e[type=skeleton,tag=undeadmage] at @s if entity @p[gamemode=!creative,gamemode=!spectator,distance=20..25] unless entity @p[gamemode=!creative,gamemode=!spectator,distance=..12] run tp @s ^ ^ ^0.2 facing entity @p[gamemode=!creative,gamemode=!spectator]
+execute as @e[type=skeleton,tag=undeadmage] at @s if entity @p[gamemode=!creative,gamemode=!spectator,distance=8..12] run tp @s ^ ^ ^-0.05 facing entity @p[gamemode=!creative,gamemode=!spectator]
+execute as @e[type=skeleton,tag=undeadmage] at @s if entity @p[gamemode=!creative,gamemode=!spectator,distance=5..8] run tp @s ^ ^ ^-0.1 facing entity @p[gamemode=!creative,gamemode=!spectator]
+execute as @e[type=skeleton,tag=undeadmage] at @s if entity @p[gamemode=!creative,gamemode=!spectator,distance=..5] run tp @s ^ ^ ^-0.2 facing entity @p[gamemode=!creative,gamemode=!spectator]
+execute as @e[type=skeleton,tag=undeadmage] at @s if entity @p[gamemode=!creative,gamemode=!spectator,distance=..20] run scoreboard players add @s AttackCharge 1
+execute as @e[type=skeleton,tag=undeadmage] at @s unless entity @p[gamemode=!creative,gamemode=!spectator,distance=..20] if score @s AttackCharge matches 1.. run scoreboard players remove @s AttackCharge 1
+execute as @e[type=skeleton,tag=undeadmage] at @s unless entity @p[gamemode=!creative,gamemode=!spectator,distance=..20] if score @s AttackCharge matches 1.. run scoreboard players remove @s AttackCharge 1
+execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 1.. run particle soul_fire_flame ~ ~1 ~ 0.3 0.4 0.3 0 1 force
+execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 20.. run particle soul_fire_flame ~ ~1 ~ 0.4 0.5 0.4 0 3 force
+execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 40.. run particle soul_fire_flame ~ ~1 ~ 0.5 0.6 0.5 0 5 force
+execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 60.. run particle soul_fire_flame ~ ~1 ~ 0.6 0.7 0.6 0 8 force
+execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 80.. run particle soul_fire_flame ~ ~1 ~ 0.7 0.8 0.7 0 10 force
+execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 100.. run particle soul_fire_flame ~ ~1 ~ 0.5 0.6 0.5 0.3 60 force
+execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 100.. run summon armor_stand ~ ~ ~ {Tags:["soulReach","custom"],Invisible:1,Marker:1,ArmorItems:[{},{},{},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:[I;-535237157,1476087147,-1761214431,-148423983],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWUwNjkwMmIyNGFiMDUyODRlZDEzMmM1ZDg1MTAxMDk2NDAwMjI2MGE2NTY1MzRhYTQyMGU0YTY4ZGQzMjdiMiJ9fX0="}]}}}}]}
+execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 100.. run playsound minecraft:entity.elder_guardian.curse ambient @a ~ ~1.7 ~ 5 0.7
+execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 100.. run scoreboard players set @s AttackCharge -100
+execute as @e[type=skeleton,tag=undeadmage] at @s unless block ~ ~0.1 ~ air run tp @s ~ ~0.2 ~
+execute as @e[type=skeleton,tag=undeadmage] at @s unless block ~ ~0.2 ~ air run tp @s ~ ~0.2 ~
+execute as @e[type=skeleton,tag=undeadmage] at @s unless block ~ ~0.3 ~ air run tp @s ~ ~0.3 ~
+execute as @e[type=skeleton,tag=undeadmage] at @s unless block ~ ~0.4 ~ air run tp @s ~ ~0.4 ~
+execute as @e[type=skeleton,tag=undeadmage] at @s unless block ~ ~0.5 ~ air run tp @s ~ ~0.5 ~
+execute as @e[type=skeleton,tag=undeadmage] at @s if block ~ ~-0.1 ~ air run tp @s ~ ~-0.1 ~
+execute as @e[type=skeleton,tag=undeadmage] at @s if block ~ ~-0.2 ~ air run tp @s ~ ~-0.2 ~
+execute as @e[type=skeleton,tag=undeadmage] at @s if block ~ ~-0.3 ~ air run tp @s ~ ~-0.3 ~
+    # Soulreach
+scoreboard players add @e[type=armor_stand,tag=soulReach] lifetime 1
+execute as @e[type=armor_stand,tag=soulReach] at @s store result score @s lifetimePlaceholder run scoreboard players get @s lifetime
+execute as @e[type=armor_stand,tag=soulReach] at @s if score @s lifetime matches 1 run tp @s ^ ^ ^ facing entity @p[gamemode=!creative,gamemode=!spectator,distance=..25] feet
+execute as @e[type=armor_stand,tag=soulReach] at @s store result score @s operationSuccess run scoreboard players operation @s lifetimePlaceholder %= storeScore 40
+execute as @e[type=armor_stand,tag=soulReach] at @s if score @s operationSuccess matches 0 run tp @s ^ ^ ^ facing entity @p[gamemode=!creative,gamemode=!spectator,distance=..25] feet
+execute as @e[type=armor_stand,tag=soulReach] at @s run tp @s ^ ^ ^0.34
+execute as @e[type=armor_stand,tag=soulReach] at @s run particle soul ^ ^1.7 ^-1.1 0.12 0.12 0.12 0.001 25 force
+execute as @e[type=armor_stand,tag=soulReach] at @s run particle soul_fire_flame ^ ^1.7 ^-1.1 0.12 0.12 0.12 0.001 25 force
+execute as @e[type=armor_stand,tag=soulReach] at @s if score @s lifetime matches 350.. run kill @s
+execute as @e[type=armor_stand,tag=soulReach] at @s unless block ^ ^1.5 ^1 air run tp @s ~ ~ ~ ~130 ~
+execute as @e[type=armor_stand,tag=soulReach] at @s run playsound entity.stray.ambient hostile @a ~ ~1.5 ~ 0.7 0
+execute as @a[gamemode=!creative,gamemode=!spectator] at @s if entity @e[type=armor_stand,tag=soulReach,distance=..1] run damage @s 3 minecraft:freeze
+
 
 
     # Overall Score Cleanup
