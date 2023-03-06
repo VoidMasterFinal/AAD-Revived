@@ -382,6 +382,7 @@ execute as @e[type=armor_stand,tag=maxFireVisuals] at @s run particle flame ^ ^1
 scoreboard players set @a Attack 0
 
 
+# TODO: Improve Death Sound Desing of Emberax
 
 # playsound minecraft:item.trident.thunder hostile @a ~ ~1 ~ 1 1.6          Smite Spell Sound
 # playsound minecraft:item.trident.return hostile @a ~ ~1 ~ 1 0             Crystal Sound
