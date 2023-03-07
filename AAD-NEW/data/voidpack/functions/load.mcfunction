@@ -3,6 +3,11 @@ scoreboard objectives add Rclick dummy
 scoreboard objectives add lifetime dummy
 scoreboard objectives add lifetimePlaceholder dummy
 scoreboard objectives add FireballCD dummy
+scoreboard objectives add DragonBreathCD dummy
+scoreboard objectives add DragonBreathCDseconds dummy
+scoreboard objectives add DragonBreathCharge dummy
+scoreboard objectives add RetainDragonBreathCharge dummy
+scoreboard objectives add UnloadDragonBreathCharge dummy
 scoreboard objectives add Burning dummy
 scoreboard objectives add BurningCopy dummy
 scoreboard objectives add BurningResultInDamage dummy
@@ -19,6 +24,7 @@ scoreboard objectives add AttackCharge dummy
 scoreboard objectives add Health dummy
 scoreboard objectives add DeathAnimation dummy
 scoreboard objectives add operationSuccess dummy
+scoreboard objectives add playsoundTimer dummy
 
 scoreboard objectives add upgradeFireWand crafted:blaze_rod
 scoreboard objectives add FireWandLVL dummy
@@ -37,3 +43,8 @@ bossbar add emberaxhealth {"text":"Emberax, the Dragon of the Fire-Scourge","col
 bossbar set emberaxhealth name {"text":"Emberax, the Dragon of the Fire-Scourge","color":"dark_red"}
 bossbar set emberaxhealth max 750
 bossbar set emberaxhealth color red
+
+bossbar add dragonbreathcharge {"text":"Dragonbreath Charge","color":"gold"}
+bossbar set dragonbreathcharge name {"text":"Dragonbreath Charge","color":"gold"}
+bossbar set dragonbreathcharge max 500
+bossbar set dragonbreathcharge color yellow

@@ -1,7 +1,7 @@
 # Overall Setup
-execute unless entity @e[tag=basebarrel,type=armor_stand] run summon armor_stand ~ ~ ~ {Tags:["basebarrel"],Invisible:1,Marker:1,Small:1}
-execute as @e[tag=basebarrel,type=armor_stand] at @s run setblock ~ ~ ~ barrel[]{Lock:"Do not remove"} keep
-execute as @e[tag=basebarrel,type=armor_stand] at @s run item replace block ~ ~ ~ container.26 with netherite_sword{display:{Name:'{"text":"Arcane Sword","color":"#03A2FF","italic":false}',Lore:['{"text":"On hit gain +1 damage, resets after 5 sec","color":"aqua","italic":false}']},HideFlags:5,Unbreakable:1b,CustomModelData:arcanesword,Enchantments:[{id:"minecraft:sharpness",lvl:13s}]}
+execute unless entity @e[tag=basebarrel,type=armor_stand] run summon armor_stand ~ ~ ~ {Tags: ["basebarrel"], Invisible: 1, Marker: 1, Small: 1}
+execute as @e[tag=basebarrel,type=armor_stand] at @s run setblock ~ ~ ~ barrel{Lock: "Do not remove"} keep
+execute as @e[tag=basebarrel,type=armor_stand] at @s run item replace block ~ ~ ~ container.26 with netherite_sword{display: {Name: '{"text":"Arcane Sword","color":"#03A2FF","italic":false}', Lore: ['{"text":"On hit gain +1 damage, resets after 5 sec","color":"aqua","italic":false}']}, HideFlags: 5, Unbreakable: 1b, CustomModelData: arcanesword, Enchantments: [{id: "minecraft:sharpness", lvl: 13s}]}
 
 
 # Fireball
@@ -60,21 +60,21 @@ execute as @e[type=armor_stand,tag=fireballhit] at @s run kill @s
     # Fireball Cooldown
 execute as @e[type=interaction,tag=firewandhitbox] on attacker if score @s FireWandLVL matches 10.. run scoreboard players add @s Lclick 1
 execute as @e[type=interaction,tag=firewandhitbox] on attacker if score @s FireWandLVL matches 10.. if score @s Lclick matches 1.. run scoreboard players remove @s FireballCD 20
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches ..0 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":". . . . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 1..20 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I . . . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 21..40 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I . . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 41..60 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 61..80 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 81.. run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I I","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches ..0 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":". . . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 1..20 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I . . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 21..40 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 41..60 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 61..80 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches ..0 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":". . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches 1..20 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I . .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches 21..40 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I .","color":"green"},{"text":" ]","color":"gold"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches 41..60 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches ..0 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":". . . . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 1..20 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I . . . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 21..40 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I . . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 41..60 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 61..80 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches ..1 if score @s FireballCD matches 81.. run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I I","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches ..0 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":". . . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 1..20 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I . . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 21..40 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 41..60 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches 2..3 if score @s FireballCD matches 61..80 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I I","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches ..0 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":". . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches 1..20 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I . .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches 21..40 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I .","color":"green"},{"text":" ]","color":"gold"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] at @s if score @s FireWandLVL matches 4.. if score @s FireballCD matches 41..60 run title @s actionbar [{"text":"Fireball Cooldown: [ ","color":"gold"},{"text":"I I I","color":"green"},{"text":" ]","color":"gold"}]
 execute as @a at @s if score @s FireballCD matches 1.. run scoreboard players remove @s FireballCD 1
     # Fireball Score Cleanup
 execute as @e[type=interaction,tag=firewandhitbox] on target if score @s Rclick matches 1.. run kill @e[type=interaction,tag=firewandhitbox]
@@ -114,21 +114,113 @@ execute as @e[type=armor_stand,tag=remcustom] at @s run kill @s
 
 
     # Arcane Sword
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s Attack matches 1.. run scoreboard players set @s AttackResetCD 100
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s Attack matches 1.. at @e[tag=basebarrel,type=armor_stand] run item replace block ~ ~ ~ container.0 from entity @s weapon.mainhand
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s Attack matches 1.. store result score @s AccumilatedAttack at @e[tag=basebarrel,type=armor_stand] run data get block ~ ~ ~ Items[0].tag.Enchantments[{id:"minecraft:sharpness"}].lvl
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s Attack matches 1.. run scoreboard players add @s AccumilatedAttack 2
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s Attack matches 1.. at @e[tag=basebarrel,type=armor_stand] store result block ~ ~ ~ Items[0].tag.Enchantments[{id:"minecraft:sharpness"}].lvl short 1 at @s run scoreboard players get @s AccumilatedAttack
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s Attack matches 1.. at @e[tag=basebarrel,type=armor_stand] run item replace entity @s weapon.mainhand from block ~ ~ ~ container.0
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s AttackResetCD matches ..0 at @e[tag=basebarrel,type=armor_stand] run item replace entity @s weapon.mainhand from block ~ ~ ~ container.26
+execute as @a at @s unless score @s Attack matches 0.. run scoreboard players set @s Attack 0
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s Attack matches 1.. run scoreboard players set @s AttackResetCD 100
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s Attack matches 1.. at @e[tag=basebarrel,type=armor_stand] run item replace block ~ ~ ~ container.0 from entity @s weapon.mainhand
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s Attack matches 1.. store result score @s AccumilatedAttack at @e[tag=basebarrel,type=armor_stand] run data get block ~ ~ ~ Items[0].tag.Enchantments[{id: "minecraft:sharpness"}].lvl
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s Attack matches 1.. run scoreboard players add @s AccumilatedAttack 2
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s Attack matches 1.. at @e[tag=basebarrel,type=armor_stand] store result block ~ ~ ~ Items[0].tag.Enchantments[{id: "minecraft:sharpness"}].lvl short 1 at @s run scoreboard players get @s AccumilatedAttack
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s Attack matches 1.. at @e[tag=basebarrel,type=armor_stand] run item replace entity @s weapon.mainhand from block ~ ~ ~ container.0
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s AttackResetCD matches ..0 at @e[tag=basebarrel,type=armor_stand] run item replace entity @s weapon.mainhand from block ~ ~ ~ container.26
     # Arcane Sword Buff Reset Display
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s AttackResetCD matches ..0 run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":". . . . .","color":"gold"},{"text":" ]","color":"blue"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s AttackResetCD matches 1..20 run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":"I . . . .","color":"gold"},{"text":" ]","color":"blue"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s AttackResetCD matches 21..40 run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":"I I . . .","color":"gold"},{"text":" ]","color":"blue"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s AttackResetCD matches 41..60 run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":"I I I . .","color":"gold"},{"text":" ]","color":"blue"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s AttackResetCD matches 61..80 run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":"I I I I .","color":"gold"},{"text":" ]","color":"blue"}]
-execute as @a[nbt={SelectedItem:{id:"minecraft:netherite_sword",tag:{CustomModelData:arcanesword}}}] at @s if score @s AttackResetCD matches 81.. run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":"I I I I I","color":"gold"},{"text":" ]","color":"blue"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s AttackResetCD matches ..0 run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":". . . . .","color":"gold"},{"text":" ]","color":"blue"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s AttackResetCD matches 1..20 run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":"I . . . .","color":"gold"},{"text":" ]","color":"blue"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s AttackResetCD matches 21..40 run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":"I I . . .","color":"gold"},{"text":" ]","color":"blue"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s AttackResetCD matches 41..60 run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":"I I I . .","color":"gold"},{"text":" ]","color":"blue"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s AttackResetCD matches 61..80 run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":"I I I I .","color":"gold"},{"text":" ]","color":"blue"}]
+execute as @a[nbt={SelectedItem: {id: "minecraft:netherite_sword", tag: {CustomModelData: arcanesword}}}] at @s if score @s AttackResetCD matches 81.. run title @s actionbar [{"text":"Attack Growth Reset Timer: [ ","color":"blue"},{"text":"I I I I I","color":"gold"},{"text":" ]","color":"blue"}]
 execute as @a at @s if score @s AttackResetCD matches 1.. run scoreboard players remove @s AttackResetCD 1
+
+
+    # Dragonbreath Staff / Dragonfire Orb
+execute as @a at @s unless score @s DragonBreathCD matches 0.. run scoreboard players set @s DragonBreathCD 0
+execute as @a at @s unless score @s DragonBreathCharge matches 0.. run scoreboard players set @s DragonBreathCharge 0
+execute as @a at @s unless score @s UnloadDragonBreathCharge matches 0.. run scoreboard players set @s UnloadDragonBreathCharge 0
+execute as @a at @s if entity @s[nbt={SelectedItem:{id:"minecraft:magma_cream",tag:{CustomModelData:dragonbreathstaff}}}] unless entity @e[type=interaction,tag=dragonbreathstaffhitbox,distance=..3] run summon interaction ~ ~0.5 ~ {Tags:["dragonbreathstaffhitbox"],response:1b,height:2,width:2}
+execute as @e[type=interaction,tag=dragonbreathstaffhitbox] on target if score @s DragonBreathCD matches ..0 run scoreboard players add @s Rclick 1
+execute as @a at @s if entity @s[nbt={SelectedItem:{id:"minecraft:magma_cream",tag:{CustomModelData:dragonbreathstaff}}}] if entity @e[type=interaction,tag=dragonbreathstaffhitbox,distance=..3] run tp @e[type=interaction,tag=dragonbreathstaffhitbox,limit=1,sort=nearest] ~ ~0.5 ~ facing ^ ^1 ^20
+execute as @e[type=interaction,tag=dragonbreathstaffhitbox] on target if score @s Rclick matches 1.. unless score @s UnloadDragonBreathCharge matches 1.. run scoreboard players set @s RetainDragonBreathCharge 20
+execute as @e[type=interaction,tag=dragonbreathstaffhitbox] on target if score @s Rclick matches 1.. if score @s RetainDragonBreathCharge matches 1.. unless score @s UnloadDragonBreathCharge matches 1.. if score @s DragonBreathCD matches ..0 run scoreboard players add @s DragonBreathCharge 1
+execute as @a at @s unless entity @a[scores={DragonBreathCharge=1..}] run bossbar set minecraft:dragonbreathcharge players 0
+execute as @e[type=interaction,tag=dragonbreathstaffhitbox] on target if score @s Rclick matches 1.. if score @s DragonBreathCharge matches 1.. run bossbar set minecraft:dragonbreathcharge players @a[distance=..40]
+execute as @a at @s if score @s DragonBreathCharge matches 1.. store result bossbar minecraft:dragonbreathcharge value run scoreboard players get @s DragonBreathCharge
+# execute as @e[type=interaction,tag=dragonbreathstaffhitbox] on target if score @s Rclick matches 1.. if score @s RetainDragonBreathCharge matches 1.. run playsound minecraft:item.firecharge.use ambient @a ~ ~1 ~ 6 1
+# execute as @e[type=interaction,tag=dragonbreathstaffhitbox] on target if score @s Rclick matches 1.. if score @s RetainDragonBreathCharge matches 1.. run scoreboard players set @s DragonBreathCD 300
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s UnloadDragonBreathCharge matches 1.. run summon armor_stand ~ ~ ~ {Tags: ["emberaxFirePlayer", "custom"], Invisible: 1, Marker: 1}
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s UnloadDragonBreathCharge matches 1.. run scoreboard players remove @s DragonBreathCharge 1
+execute as @a at @s if score @s DragonBreathCharge matches ..-1 run scoreboard players set @s DragonBreathCharge 0
+scoreboard players add @e[type=armor_stand,tag=emberaxFirePlayer] lifetime 1
+execute as @e[type=armor_stand,tag=emberaxFirePlayer] at @s if score @s lifetime matches 1 run tp @s @p
+execute as @e[type=armor_stand,tag=emberaxFirePlayer] at @s run particle flame ~ ~1 ~ 0.5 0.33 0.5 0.07 30 force
+execute as @e[type=armor_stand,tag=emberaxFirePlayer] at @s run playsound minecraft:block.fire.ambient ambient @a ~ ~1 ~ 10 0.7
+execute as @e[type=armor_stand,tag=emberaxFirePlayer] at @s run playsound minecraft:block.redstone_torch.burnout ambient @a ~ ~1 ~ 0.7 0
+execute as @a at @s if score @s UnloadDragonBreathCharge matches 1.. if score @s DragonBreathCharge matches 1.. run particle lava ^ ^1 ^1 0.2 0.2 0.2 0.1 10 force
+execute as @e[type=armor_stand,tag=emberaxFirePlayer] at @s if score @s lifetime matches 2.. run tp @s ^ ^ ^1
+execute as @e[type=!armor_stand,type=!block_display,type=!interaction,type=!item] at @s if entity @e[tag=emberaxFirePlayer,type=armor_stand,distance=..2,scores={lifetime=5..}] run damage @s 10 minecraft:in_fire
+execute as @e[type=armor_stand,tag=emberaxFirePlayer] at @s if score @s lifetime matches 50.. run kill @s
+execute if entity @a[scores={UnloadDragonBreathCharge=1..}] run bossbar set dragonbreathcharge color red
+execute unless entity @a[scores={UnloadDragonBreathCharge=1..}] run bossbar set dragonbreathcharge color yellow
+execute as @e[type=armor_stand,tag=immobalizeCharge] at @s run tp @a[scores={DragonBreathCharge=1..},distance=..1] ~ ~ ~
+execute as @a at @s if score @s DragonBreathCharge matches 1.. unless entity @e[type=armor_stand,tag=immobalizeCharge,distance=..1] run summon armor_stand ~ ~ ~ {Tags: ["immobalizeCharge"], Invisible: 1, Marker: 1}
+execute as @e[type=armor_stand,tag=immobalizeCharge] at @s unless entity @a[scores={DragonBreathCharge=1..},distance=..1] run kill @s
+execute as @a at @s if score @s DragonBreathCharge matches 1.. unless score @s UnloadDragonBreathCharge matches 1.. run particle flame ^ ^1 ^1 0.1 0.1 0.1 0.01 10 force
+execute as @a at @s if score @s DragonBreathCharge matches 50.. unless score @s UnloadDragonBreathCharge matches 1.. run particle flame ^ ^1 ^1 0.15 0.15 0.15 0.04 10 force
+execute as @a at @s if score @s DragonBreathCharge matches 50 unless score @s UnloadDragonBreathCharge matches 1.. run playsound minecraft:block.respawn_anchor.charge ambient @a ~ ~1 ~ 4 0
+execute as @a at @s if score @s DragonBreathCharge matches 100.. unless score @s UnloadDragonBreathCharge matches 1.. run particle flame ^ ^1 ^1 0.2 0.2 0.2 0.1 10 force
+execute as @a at @s if score @s DragonBreathCharge matches 100 unless score @s UnloadDragonBreathCharge matches 1.. run playsound minecraft:block.respawn_anchor.charge ambient @a ~ ~1 ~ 4 0.6
+execute as @a at @s if score @s DragonBreathCharge matches 200.. unless score @s UnloadDragonBreathCharge matches 1.. run particle soul ^ ^1 ^1 0.15 0.15 0.15 0.1 10 force
+execute as @a at @s if score @s DragonBreathCharge matches 200 unless score @s UnloadDragonBreathCharge matches 1.. run playsound minecraft:block.respawn_anchor.charge ambient @a ~ ~1 ~ 4 0.8
+execute as @a at @s if score @s DragonBreathCharge matches 400.. unless score @s UnloadDragonBreathCharge matches 1.. run particle large_smoke ^ ^1 ^1 0.2 0.2 0.2 0.1 5 force
+execute as @a at @s if score @s DragonBreathCharge matches 400 unless score @s UnloadDragonBreathCharge matches 1.. run playsound minecraft:block.respawn_anchor.charge ambient @a ~ ~1 ~ 4 1
+execute as @a at @s if score @s DragonBreathCharge matches 500 unless score @s UnloadDragonBreathCharge matches 1.. run playsound block.bell.use ambient @a ~ ~1 ~ 10 0
+execute as @a at @s if score @s DragonBreathCharge matches 500 unless score @s UnloadDragonBreathCharge matches 1.. run playsound block.bell.use ambient @a ~ ~1 ~ 10 0
+execute as @a at @s if score @s DragonBreathCharge matches 500 unless score @s UnloadDragonBreathCharge matches 1.. run playsound block.bell.use ambient @a ~ ~1 ~ 10 0
+execute as @a at @s if score @s DragonBreathCharge matches 500 unless score @s UnloadDragonBreathCharge matches 1.. run playsound block.bell.use ambient @a ~ ~1 ~ 10 0
+execute as @a at @s if score @s DragonBreathCharge matches 500 unless score @s UnloadDragonBreathCharge matches 1.. run playsound block.bell.use ambient @a ~ ~1 ~ 10 0
+execute as @a at @s if score @s DragonBreathCharge matches 500 unless score @s UnloadDragonBreathCharge matches 1.. run playsound block.bell.use ambient @a ~ ~1 ~ 10 0
+execute as @a at @s if score @s DragonBreathCharge matches 500 unless score @s UnloadDragonBreathCharge matches 1.. run playsound block.bell.use ambient @a ~ ~1 ~ 10 0
+execute as @a at @s if score @s DragonBreathCharge matches 1.. unless score @s UnloadDragonBreathCharge matches 1.. run particle enchant ~ ~1 ~ 0.5 0.5 0.5 1 10 force
+execute as @a at @s if score @s DragonBreathCharge matches 502.. run scoreboard players set @s DragonBreathCharge 501
+scoreboard players add @a playsoundTimer 1
+execute as @a at @s if score @s playsoundTimer matches 7.. if score @s DragonBreathCharge matches 1.. unless score @s UnloadDragonBreathCharge matches 1.. run playsound minecraft:entity.zombie_villager.converted player @a ~ ~1 ~ 8 0
+execute as @a at @s if score @s playsoundTimer matches 7.. if score @s DragonBreathCharge matches 1.. unless score @s UnloadDragonBreathCharge matches 1.. run playsound block.campfire.crackle player @a ~ ~1 ~ 8 0.7
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s UnloadDragonBreathCharge matches 1.. run stopsound @a player entity.zombie_villager.converted
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s UnloadDragonBreathCharge matches 1.. run stopsound @a player block.campfire.crackle
+execute as @a at @s if score @s playsoundTimer matches 7.. run scoreboard players set @s playsoundTimer 0
+execute as @e[tag=emberaxFirePlayer,type=armor_stand] at @s unless block ~ ~-1 ~ air unless entity @e[type=armor_stand,tag=fireTrailPlayer,distance=..2] unless entity @p[distance=..3] run summon armor_stand ~ ~-1.35 ~ {Tags: ["fireTrailPlayer"],Marker:1,Invisible:1}
+scoreboard players add @e[type=armor_stand,tag=fireTrailPlayer] lifetime 1
+execute as @e[type=armor_stand,tag=fireTrailPlayer] at @s run particle smoke ~ ~1 ~ 0.3 0.1 0.3 0 4 force
+execute as @e[type=armor_stand,tag=fireTrailPlayer] at @s run particle small_flame ~ ~1 ~ 0.3 0.1 0.3 0.05 4 force
+execute as @e[type=!armor_stand,type=!block_display,type=!interaction,type=!item] at @s if entity @e[type=armor_stand,tag=fireTrailPlayer,distance=..2.2] run damage @s 3 minecraft:hot_floor
+execute as @e[type=armor_stand,tag=fireTrailPlayer] at @s if score @s lifetime matches 200.. run kill @s
+execute as @e[tag=emberaxFirePlayer,type=armor_stand] at @s unless block ~ ~1 ~ air run particle lava ~ ~1 ~ 0.2 0.2 0.2 1 20 force
+execute as @e[tag=emberaxFirePlayer,type=armor_stand] at @s unless block ~ ~1 ~ air run kill @s
+    # Dragonbreath Score Cleanup
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 0 run playsound entity.warden.sonic_charge hostile @a ~ ~1 ~ 6 0
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 0 run playsound entity.warden.roar hostile @a ~ ~1 ~ 6 0.65
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 0 run playsound entity.warden.roar hostile @a ~ ~1 ~ 6 0
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 0 run playsound entity.warden.roar hostile @a ~ ~1 ~ 6 0.8
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 0 run playsound entity.warden.sonic_charge hostile @a ~ ~1 ~ 6 0
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 0 run playsound entity.warden.roar hostile @a ~ ~1 ~ 6 0.65
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 0 run playsound entity.warden.roar hostile @a ~ ~1 ~ 6 0
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 0 run playsound entity.warden.roar hostile @a ~ ~1 ~ 6 0.8
+execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 run scoreboard players set @s UnloadDragonBreathCharge 1
+execute as @a at @s if score @s DragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 1.. run scoreboard players set @s UnloadDragonBreathCharge 0
+execute as @a at @s if score @s UnloadDragonBreathCharge matches 1.. run scoreboard players set @s DragonBreathCD 1200
+execute as @a at @s if score @s DragonBreathCD matches 1.. run scoreboard players operation @s DragonBreathCDseconds = @s DragonBreathCD
+execute as @a at @s if score @s DragonBreathCD matches 1.. run scoreboard players operation @s DragonBreathCDseconds /= storeScore 20
+execute as @a at @s if score @s DragonBreathCD matches 1.. run scoreboard players remove @s DragonBreathCD 1
+execute as @a[nbt={SelectedItem:{id:"minecraft:magma_cream",tag:{CustomModelData:dragonbreathstaff}}}] at @s if score @s DragonBreathCD matches 1.. unless score @s DragonBreathCharge matches 1.. run title @s actionbar [{"text":"Dragonbreath Cooldown: ","color":"red"},{"score":{"name":"*","objective":"DragonBreathCDseconds"},"color":"blue"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:magma_cream",tag:{CustomModelData:dragonbreathstaff}}}] at @s if score @s DragonBreathCD matches ..0 if score @s DragonBreathCharge matches ..0 run title @s actionbar {"text":"Dragonbreath Ready For Use!","color":"green"}
+execute as @a[nbt={SelectedItem:{id:"minecraft:magma_cream",tag:{CustomModelData:dragonbreathstaff}}}] at @s if score @s DragonBreathCD matches ..0 if score @s DragonBreathCharge matches 1.. run title @s actionbar {"text":"Charging...","color":"gold"}
+execute as @a[nbt={SelectedItem:{id:"minecraft:magma_cream",tag:{CustomModelData:dragonbreathstaff}}}] at @s if score @s DragonBreathCharge matches 1.. if score @s UnloadDragonBreathCharge matches 1.. run title @s actionbar {"text":"Firing!!","color":"red"}
+execute as @a at @s if score @s RetainDragonBreathCharge matches 1.. run scoreboard players remove @s RetainDragonBreathCharge 1
+execute as @a at @s if score @s DragonBreathCD matches 1 run playsound block.beacon.activate ambient @a ~ ~1 ~ 2 0.6
+execute as @a at @s if score @s DragonBreathCD matches 1 run playsound block.beacon.activate ambient @a ~ ~1 ~ 2 0.6
+execute as @a at @s if score @s DragonBreathCD matches 1 run playsound block.beacon.activate ambient @a ~ ~1 ~ 2 0.6
+execute as @e[type=interaction,tag=dragonbreathstaffhitbox] on target if score @s Rclick matches 1.. run kill @e[type=interaction,tag=dragonbreathstaffhitbox]
+execute as @e[type=interaction,tag=dragonbreathstaffhitbox] on target if score @s Rclick matches 1.. run scoreboard players set @s Rclick 0
+execute as @a at @s unless entity @p[nbt={SelectedItem:{id:"minecraft:magma_cream",tag:{CustomModelData:dragonbreathstaff}}},distance=..3] run kill @e[type=interaction,tag=dragonbreathstaffhitbox,distance=..3]
 
 
     # Emberax, the Dragon of the Fire-Scourge
@@ -150,7 +242,7 @@ execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation
 execute as @e[tag=emberax,type=armor_stand] at @s run fill ~-1 ~1 ~-1 ~1 ~3 ~1 air replace light
 execute as @e[tag=emberax,type=armor_stand] at @s run setblock ~ ~2 ~ light keep
 execute as @e[tag=emberax,type=armor_stand,tag=!deadEmberax] at @s unless entity @e[type=block_display,tag=emberaxhead1,distance=..10] run summon block_display ^-0.5 ^0.5 ^-0.5 {Tags:["emberaxhead1","emberaxpart"],block_state:{Name:"minecraft:white_concrete"}}
-execute as @e[tag=emberax,type=armor_stand,tag=!deadEmberax] at @s unless entity @e[type=giant,tag=emberaxhitbox,distance=..10] run summon giant ~ ~ ~ {NoGravity:1b,Silent:1b,PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:0b,Health:750f,Tags:["emberaxhitbox"],ActiveEffects:[{Id:14,Amplifier:1b,Duration:100000000,ShowParticles:0b}],Attributes:[{Name:generic.max_health,Base:750}]}
+execute as @e[tag=emberax,type=armor_stand,tag=!deadEmberax] at @s unless entity @e[type=giant,tag=emberaxhitbox,distance=..10] run summon giant ~ ~ ~ {NoGravity: 1b, Silent: 1b, PersistenceRequired: 1b, NoAI: 1b, CanPickUpLoot: 0b, Health: 750f, Tags: ["emberaxhitbox"], ActiveEffects: [{Id: 14, Amplifier: 1b, Duration: 100000000, ShowParticles: 0b}], Attributes: [{Name: generic.max_health, Base: 750}]}
 execute as @e[type=armor_stand,tag=emberax,tag=!emberaxActive] at @s if score @s lifetime matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.65
 execute as @e[type=armor_stand,tag=emberax,tag=!emberaxActive] at @s if score @s lifetime matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0
 execute as @e[type=armor_stand,tag=emberax,tag=!emberaxActive] at @s if score @s lifetime matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.8
@@ -176,10 +268,10 @@ execute as @e[type=armor_stand,tag=emberax] at @s unless entity @p[distance=..35
 execute as @e[type=armor_stand,tag=emberax] at @s unless entity @p[distance=..35,gamemode=!creative,gamemode=!spectator] run tag @s remove emberaxActive
 execute as @e[type=armor_stand,tag=emberax,tag=!emberaxActive] at @s run scoreboard players set @s EmberaxAttackCycle 0
 execute as @e[type=armor_stand,tag=emberaxActive,tag=!deadEmberax] at @s run scoreboard players add @s EmberaxAttackCycle 1
-execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags:["emberaxrandom","emberaxrandom1","emberaxpart"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags: ["emberaxrandom", "emberaxrandom1", "emberaxpart"], Invisible: 1, Marker: 1}
 # execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags:["emberaxrandom","emberaxrandom2","emberaxpart"],Invisible:1,Marker:1}
-execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags:["emberaxrandom","emberaxrandom3","emberaxpart"],Invisible:1,Marker:1}
-execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags:["emberaxrandom","emberaxrandom4","emberaxpart"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags: ["emberaxrandom", "emberaxrandom3", "emberaxpart"], Invisible: 1, Marker: 1}
+execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags: ["emberaxrandom", "emberaxrandom4", "emberaxpart"], Invisible: 1, Marker: 1}
 execute as @e[type=armor_stand,tag=emberax] at @s run tag @e[tag=emberaxrandom,limit=1,sort=random,distance=..10] add emberaxrandomCHOSEN
 kill @e[type=armor_stand,tag=emberaxrandom,tag=!emberaxrandomCHOSEN]
 execute as @e[type=armor_stand,tag=emberaxrandom1,tag=!deadEmberax] at @s run scoreboard players set @e[type=armor_stand,tag=emberax,distance=..10,limit=1,sort=nearest] EmberaxAttackType 1
@@ -197,7 +289,7 @@ execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAimed
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAimedFireAttack matches 30..35 run particle soul ^ ^1 ^1 0.15 0.15 0.15 0.1 10 force
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAimedFireAttack matches 30..35 run particle lava ^ ^1 ^1 0.2 0.2 0.2 0.1 10 force
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAimedFireAttack matches 35..100 run particle lava ^ ^1 ^1 0.2 0.2 0.2 0.1 10 force
-execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAimedFireAttack matches 35..100 run summon armor_stand ~ ~ ~ {Tags:["emberaxFire","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAimedFireAttack matches 35..100 run summon armor_stand ~ ~ ~ {Tags: ["emberaxFire", "custom"], Invisible: 1, Marker: 1}
 scoreboard players add @e[tag=emberaxFire,type=armor_stand] lifetime 1
 execute as @e[tag=emberaxFire,type=armor_stand] at @s if score @s lifetime matches 1 run tp @s ^ ^ ^ facing entity @p[gamemode=!creative,gamemode=!spectator] feet
 execute as @e[tag=emberaxFire,type=armor_stand] at @s if score @s lifetime matches 2.. run tp @s ^ ^ ^1
@@ -206,7 +298,7 @@ execute as @e[tag=emberaxFire,type=armor_stand] at @s run playsound minecraft:bl
 execute as @e[tag=emberaxFire,type=armor_stand] at @s run playsound minecraft:block.redstone_torch.burnout ambient @a ~ ~1 ~ 0.7 0
 execute as @e[tag=emberaxFire,type=armor_stand] at @s unless block ~ ~ ~ air run particle lava ~ ~1 ~ 0.2 0.2 0.2 1 20 force
 execute as @e[tag=emberaxFire,type=armor_stand] at @s unless block ~ ~ ~ air run kill @s
-execute as @e[tag=emberaxFire,type=armor_stand] at @s unless block ~ ~-1 ~ air unless entity @e[type=armor_stand,tag=fireTrail,distance=..2] run summon armor_stand ~ ~-1.5 ~ {Tags:["fireTrail"],Marker:1,Invisible:1}
+execute as @e[tag=emberaxFire,type=armor_stand] at @s unless block ~ ~-1 ~ air unless entity @e[type=armor_stand,tag=fireTrail,distance=..2] run summon armor_stand ~ ~-1.5 ~ {Tags: ["fireTrail"], Marker: 1, Invisible: 1}
 scoreboard players add @e[type=armor_stand,tag=fireTrail] lifetime 1
 execute as @e[type=armor_stand,tag=fireTrail] at @s run particle smoke ~ ~1 ~ 0.3 0.1 0.3 0 4 force
 execute as @e[type=armor_stand,tag=fireTrail] at @s run particle small_flame ~ ~1 ~ 0.3 0.1 0.3 0.05 4 force
@@ -229,27 +321,27 @@ execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummo
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 60 run playsound minecraft:entity.evoker.prepare_summon hostile @a ~ ~1 ~ 8 0
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 60 run playsound minecraft:entity.elder_guardian.curse hostile @a ~ ~1 ~ 5 0
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 60 run playsound minecraft:block.beacon.power_select hostile @a ~ ~1 ~ 8 0
-execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 60 run summon armor_stand ~ ~1 ~ {Tags:["dragonoidSoul1","dragonoidSoul"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 60 run summon armor_stand ~ ~1 ~ {Tags: ["dragonoidSoul1", "dragonoidSoul"], Invisible: 1, Marker: 1}
 scoreboard players add @e[type=armor_stand,tag=dragonoidSoul] lifetime 1
 execute as @e[type=armor_stand,tag=dragonoidSoul1] at @e[type=armor_stand,tag=emberax,limit=1,sort=nearest] if score @s lifetime matches 1 run tp @s ~ ~ ~ facing entity @p[gamemode=!creative,gamemode=!spectator] feet
 execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s if score @s lifetime matches 2.. run tp @s ^-0.15 ^0.07 ^0.1
 execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s run particle soul_fire_flame ~ ~1 ~ 0.1 0.1 0.1 0 5 force
 execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s run particle soul ~ ~1 ~ 0.1 0.1 0.1 0 5 force
-execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s if score @s lifetime matches 40.. run summon armor_stand ~ ~-0.5 ~ {Tags:["dragonoidSummon"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s if score @s lifetime matches 40.. run summon armor_stand ~ ~-0.5 ~ {Tags: ["dragonoidSummon"], Invisible: 1, Marker: 1}
 execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s if score @s lifetime matches 40.. run kill @s
-execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 100 run summon armor_stand ~ ~1 ~ {Tags:["dragonoidSoul2","dragonoidSoul"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 100 run summon armor_stand ~ ~1 ~ {Tags: ["dragonoidSoul2", "dragonoidSoul"], Invisible: 1, Marker: 1}
 execute as @e[type=armor_stand,tag=dragonoidSoul2] at @e[type=armor_stand,tag=emberax,limit=1,sort=nearest] if score @s lifetime matches 1 run tp @s ~ ~ ~ facing entity @p[gamemode=!creative,gamemode=!spectator] feet
 execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s if score @s lifetime matches 2.. run tp @s ^ ^0.07 ^0.1
 execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s run particle soul_fire_flame ~ ~1 ~ 0.1 0.1 0.1 0 5 force
 execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s run particle soul ~ ~1 ~ 0.1 0.1 0.1 0 5 force
-execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s if score @s lifetime matches 40.. run summon armor_stand ~ ~-0.5 ~ {Tags:["dragonoidSummon"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s if score @s lifetime matches 40.. run summon armor_stand ~ ~-0.5 ~ {Tags: ["dragonoidSummon"], Invisible: 1, Marker: 1}
 execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s if score @s lifetime matches 40.. run kill @s
-execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 140 run summon armor_stand ~ ~1 ~ {Tags:["dragonoidSoul3","dragonoidSoul"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 140 run summon armor_stand ~ ~1 ~ {Tags: ["dragonoidSoul3", "dragonoidSoul"], Invisible: 1, Marker: 1}
 execute as @e[type=armor_stand,tag=dragonoidSoul3] at @e[type=armor_stand,tag=emberax,limit=1,sort=nearest] if score @s lifetime matches 1 run tp @s ~ ~ ~ facing entity @p[gamemode=!creative,gamemode=!spectator] feet
 execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s if score @s lifetime matches 2.. run tp @s ^0.15 ^0.07 ^0.1
 execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s run particle soul_fire_flame ~ ~1 ~ 0.1 0.1 0.1 0 5 force
 execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s run particle soul ~ ~1 ~ 0.1 0.1 0.1 0 5 force
-execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s if score @s lifetime matches 40.. run summon armor_stand ~ ~-0.5 ~ {Tags:["dragonoidSummon"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s if score @s lifetime matches 40.. run summon armor_stand ~ ~-0.5 ~ {Tags: ["dragonoidSummon"], Invisible: 1, Marker: 1}
 execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s if score @s lifetime matches 40.. run kill @s
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 200.. run scoreboard players set @s EmberaxAttackType 0
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxSummonAttack matches 200.. run scoreboard players set @s EmberaxSummonAttack 0
@@ -262,7 +354,7 @@ execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxRumbl
 execute as @a at @s if score @e[type=armor_stand,tag=emberaxActive,limit=1,sort=nearest,distance=..40] EmberaxRumbleAttack matches 40..140 run playsound block.composter.fill ambient @a ~ ~4 ~ 7 0
 execute as @a at @s if score @e[type=armor_stand,tag=emberaxActive,limit=1,sort=nearest,distance=..40] EmberaxRumbleAttack matches 20..160 run playsound minecraft:item.armor.equip_leather ambient @a ~ ~4 ~ 7 0
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxRumbleAttack matches 30..160 run particle smoke ~ ~6 ~ 10 10 10 0 50 normal
-execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxRumbleAttack matches 1..25 run summon armor_stand ~ ~ ~ {Tags:["rumble","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxRumbleAttack matches 1..25 run summon armor_stand ~ ~ ~ {Tags: ["rumble", "custom"], Invisible: 1, Marker: 1}
 scoreboard players add @e[type=armor_stand,tag=rumble] lifetime 1
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxRumbleAttack matches 26 at @p[gamemode=!creative,gamemode=!spectator,distance=..35] run spreadplayers ~ ~ 1 15 false @e[type=armor_stand,tag=rumble]
 execute as @e[type=armor_stand,tag=rumble] at @s store result score @s EmberaxYlevel run data get entity @s Pos[1]
@@ -303,9 +395,9 @@ execute as @e[type=armor_stand,tag=emberaxEnraged] at @s run particle angry_vill
 execute as @e[type=armor_stand,tag=dragonoid] at @s unless entity @e[type=armor_stand,tag=emberaxActive,limit=1,sort=nearest,distance=..40] run kill @s
 execute as @e[type=armor_stand,tag=dragonoid] at @s run fill ~-1 ~1 ~-1 ~1 ~3 ~1 air replace light
 execute as @e[type=armor_stand,tag=dragonoid] at @s run setblock ~ ~2 ~ light keep
-execute as @e[type=armor_stand,tag=dragonoidSummon] at @s run summon armor_stand ~ ~ ~ {Tags:["dragonoid","custom"],Marker:1b,Invisible:1b,ArmorItems:[{},{},{},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:[I;-26142344,-1290910511,-1698333806,1311502884],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWI2ZTVjZDYxMmM3M2NkOGU2YzdhNzIwYzI2MjgzZTc1NDhjYTcyOGQ4YjMwNjAxODQwZjdkYTVkNDMzZDgzYiJ9fX0="}]}}}}]}
+execute as @e[type=armor_stand,tag=dragonoidSummon] at @s run summon armor_stand ~ ~ ~ {Tags: ["dragonoid", "custom"], Marker: 1b, Invisible: 1b, ArmorItems: [{}, {}, {}, {id: "minecraft:player_head", Count: 1b, tag: {SkullOwner: {Id: [I; -26142344, -1290910511, -1698333806, 1311502884], Properties: {textures: [{Value: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWI2ZTVjZDYxMmM3M2NkOGU2YzdhNzIwYzI2MjgzZTc1NDhjYTcyOGQ4YjMwNjAxODQwZjdkYTVkNDMzZDgzYiJ9fX0="}]}}}}]}
 execute as @e[type=armor_stand,tag=dragonoidSummon] at @s run tp @e[type=armor_stand,tag=dragonoid,limit=1,sort=nearest,distance=..2] ~ ~ ~ facing entity @p[gamemode=!spectator] feet
-execute as @e[type=armor_stand,tag=dragonoidSummon] at @s run summon wolf ~ ~ ~ {Tags:["dragonoidHitbox"],NoAI:1,Silent:1,NoGravity:1,ActiveEffects:[{Id:14,Amplifier:1b,Duration:100000000,ShowParticles:0b}]}
+execute as @e[type=armor_stand,tag=dragonoidSummon] at @s run summon wolf ~ ~ ~ {Tags: ["dragonoidHitbox"], NoAI: 1, Silent: 1, NoGravity: 1, ActiveEffects: [{Id: 14, Amplifier: 1b, Duration: 100000000, ShowParticles: 0b}]}
 execute as @e[type=armor_stand,tag=dragonoidSummon] at @s run playsound minecraft:block.note_block.imitate.ender_dragon hostile @a ~ ~1 ~ 3 1.5
 execute as @e[type=armor_stand,tag=dragonoidSummon] at @s run particle smoke ~ ~1.25 ~ 0.3 0.3 0.3 0.1 40 force
 execute as @e[type=armor_stand,tag=dragonoidSummon] at @s run kill @s
@@ -327,7 +419,7 @@ execute as @e[type=armor_stand,tag=dragonoid] at @s if score @s flappingBounce m
     #attack
 execute as @e[type=armor_stand,tag=dragonoid] at @s if entity @p[gamemode=!creative,gamemode=!spectator,distance=..7] run scoreboard players add @s AttackCharge 1
 execute as @e[type=armor_stand,tag=dragonoid] at @s if score @s AttackCharge matches 40.. run playsound entity.blaze.hurt hostile @a ~ ~1.7 ~ 3.5 2
-execute as @e[type=armor_stand,tag=dragonoid] at @s if score @s AttackCharge matches 40.. run summon armor_stand ~ ~1 ~ {Tags:["dragonoidfirebreath"],Invisible:1,Small:1,Marker:1}
+execute as @e[type=armor_stand,tag=dragonoid] at @s if score @s AttackCharge matches 40.. run summon armor_stand ~ ~1 ~ {Tags: ["dragonoidfirebreath"], Invisible: 1, Small: 1, Marker: 1}
 execute as @e[type=armor_stand,tag=dragonoid] at @s if score @s AttackCharge matches 40.. run scoreboard players set @s AttackCharge 0
 execute as @e[type=armor_stand,tag=dragonoidfirebreath] at @s run particle small_flame ~ ~0.6 ~ 0.05 0.05 0.05 0 10 force
 scoreboard players add @e[type=armor_stand,tag=dragonoidfirebreath] lifetime 1
@@ -361,25 +453,26 @@ execute as @a at @s unless score @s FireWandLVL matches 0.. run scoreboard playe
 scoreboard players set @a FireWandUpgradedLVL 1
 execute as @a at @s run scoreboard players operation @s FireWandUpgradedLVL += @s FireWandLVL
 execute as @a at @s if score @s upgradeFireWand matches 1.. run stopsound @a * block.smithing_table.use
-execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 1..8 run tellraw @a [{"text":"Player ","color":"gold"},{"selector":"@s","color":"#AFFF24"},{"text":" upgraded ","color":"gold"},{"text":"Fire Wand lvl.","color":"aqua"},{"score":{"name":"@s","objective":"FireWandLVL"},"color":"aqua"},{"text":" -> ","color":"green"},{"text":"Fire Wand lvl.","color":"aqua"},{"score":{"name":"@s","objective":"FireWandUpgradedLVL"},"color":"aqua"}]
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches ..8 run tellraw @a [{"text":"Player ","color":"gold"},{"selector":"@s","color":"#AFFF24"},{"text":" upgraded ","color":"gold"},{"text":"Fire Wand lvl.","color":"aqua"},{"score":{"name":"@s","objective":"FireWandLVL"},"color":"aqua"},{"text":" -> ","color":"green"},{"text":"Fire Wand lvl.","color":"aqua"},{"score":{"name":"@s","objective":"FireWandUpgradedLVL"},"color":"aqua"}]
 execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 9 run tellraw @a [{"text":"Player ","color":"gold"},{"selector":"@s","color":"#AFFF24"},{"text":" upgraded ","color":"gold"},{"text":"Fire Wand lvl.","color":"aqua"},{"score":{"name":"@s","objective":"FireWandLVL"},"color":"aqua"},{"text":" -> ","color":"green"},{"text":"Fire Wand lvl.Max","color":"dark_purple"}]
 execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 10.. run tellraw @a {"text":"Canceled upgrade, item already max level!","color":"red"}
-execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 10.. run give @s amethyst_shard{display:{Name:'{"text":"Upgrade Crystal","color":"purple","italic":false}'},Enchantments:[{}]}
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 10.. run give @s amethyst_shard{display: {Name: '{"text":"Upgrade Crystal","color":"light_purple","italic":false}'}, Enchantments: [{}]}
 execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches ..9 run playsound minecraft:item.trident.thunder ambient @a ~ ~1 ~ 4 1.5 1
 execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 10.. run playsound minecraft:block.note_block.didgeridoo ambient @a ~ ~1 ~ 3 0
 execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 10.. run playsound minecraft:block.note_block.didgeridoo ambient @a ~ ~1 ~ 3 0
-execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches 1..9 run scoreboard players add @s FireWandLVL 1
+execute as @a at @s if score @s upgradeFireWand matches 1.. if score @s FireWandLVL matches ..9 run scoreboard players add @s FireWandLVL 1
 execute as @a at @s if score @s upgradeFireWand matches 1.. run scoreboard players set @s upgradeFireWand 0
-execute as @a at @s if entity @s[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] if score @s FireWandLVL matches 10.. run tp @e[type=armor_stand,tag=maxFireVisuals,distance=..2] ~ ~ ~
-execute as @a at @s if entity @s[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}}] if score @s FireWandLVL matches 10.. unless entity @e[type=armor_stand,tag=maxFireVisuals,distance=..2] run summon armor_stand ~ ~ ~ {Tags:["maxFireVisuals"],Invisible:1,Marker:1}
-execute as @e[type=armor_stand,tag=maxFireVisuals] at @s unless entity @a[nbt={SelectedItem:{id:"minecraft:blaze_rod",tag:{CustomModelData:firewand}}},scores={FireWandLVL=10..},distance=..2] run kill @s
+    # Max Fire Wand Particles
+execute as @a at @s if entity @s[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] if score @s FireWandLVL matches 10.. run tp @e[type=armor_stand,tag=maxFireVisuals,distance=..2] ~ ~ ~
+execute as @a at @s if entity @s[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}}] if score @s FireWandLVL matches 10.. unless entity @e[type=armor_stand,tag=maxFireVisuals,distance=..2] run summon armor_stand ~ ~ ~ {Tags: ["maxFireVisuals"], Invisible: 1, Marker: 1}
+execute as @e[type=armor_stand,tag=maxFireVisuals] at @s unless entity @a[nbt={SelectedItem: {id: "minecraft:blaze_rod", tag: {CustomModelData: firewand}}},scores={FireWandLVL=10..},distance=..2] run kill @s
 execute as @e[type=armor_stand,tag=maxFireVisuals] at @s run tp @s ~ ~ ~ ~10 ~
 execute as @e[type=armor_stand,tag=maxFireVisuals] at @s run particle flame ^ ^1 ^2 0 0 0 0.01 5 force
 execute as @e[type=armor_stand,tag=maxFireVisuals] at @s run particle flame ^ ^1 ^-2 0 0 0 0.01 5 force
 
 
     # Undead Mage
-execute as @e[type=armor_stand,tag=summonundeadmage] at @s run summon skeleton ~ ~ ~ {OnGround:1b,NoGravity:0b,DeathLootTable:"minecraft:empty",LeftHanded:0b,PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:0b,Health:30f,Tags:["undeadmage","custom"],HandItems:[{id:"minecraft:stick",Count:1b,tag:{Enchantments:[{}]}},{id:"minecraft:amethyst_shard",Count:1b,tag:{display:{Name:'{"text":"Upgrade Crystal","color":"light_purple","italic":false}'},Enchantments:[{}]}}],HandDropChances:[0.000F,0.200F],ArmorItems:[{id:"minecraft:netherite_boots",Count:1b},{id:"minecraft:netherite_leggings",Count:1b},{id:"minecraft:netherite_chestplate",Count:1b},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:[I;-2090969427,-1858058365,-1425762194,836113187],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQ3MjZkOTQxMGJiNGJjODMwNjg3ZjA2MjhjZDdjNGVjMTU4YWNmNmI1NzQwM2E1NzYwZDE3NDc3Yjg0Njg2YSJ9fX0="}]}}}}],ArmorDropChances:[0.000F,0.000F,0.000F,0.000F],Attributes:[{Name:generic.max_health,Base:30}]}
+execute as @e[type=armor_stand,tag=summonundeadmage] at @s run summon skeleton ~ ~ ~ {OnGround: 1b, NoGravity: 0b, DeathLootTable: "minecraft:empty", LeftHanded: 0b, PersistenceRequired: 1b, NoAI: 1b, CanPickUpLoot: 0b, Health: 30f, Tags: ["undeadmage", "custom"], HandItems: [{id: "minecraft:stick", Count: 1b, tag: {Enchantments: [{}]}}, {id: "minecraft:amethyst_shard", Count: 1b, tag: {display: {Name: '{"text":"Upgrade Crystal","color":"light_purple","italic":false}'}, Enchantments: [{}]}}], HandDropChances: [0.000f, 0.200f], ArmorItems: [{id: "minecraft:netherite_boots", Count: 1b}, {id: "minecraft:netherite_leggings", Count: 1b}, {id: "minecraft:netherite_chestplate", Count: 1b}, {id: "minecraft:player_head", Count: 1b, tag: {SkullOwner: {Id: [I; -2090969427, -1858058365, -1425762194, 836113187], Properties: {textures: [{Value: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQ3MjZkOTQxMGJiNGJjODMwNjg3ZjA2MjhjZDdjNGVjMTU4YWNmNmI1NzQwM2E1NzYwZDE3NDc3Yjg0Njg2YSJ9fX0="}]}}}}], ArmorDropChances: [0.000f, 0.000f, 0.000f, 0.000f], Attributes: [{Name: generic.max_health, Base: 30}]}
 execute as @e[type=armor_stand,tag=summonundeadmage] at @s run playsound entity.blaze.ambient hostile @a ~ ~1 ~ 4 0
 execute as @e[type=armor_stand,tag=summonundeadmage] at @s run kill @s
 execute as @e[type=skeleton,tag=undeadmage] at @s run particle smoke ~ ~1 ~ 0.3 0.4 0.3 0 1 force
@@ -401,7 +494,7 @@ execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge match
 execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 60.. run particle soul_fire_flame ~ ~1 ~ 0.6 0.7 0.6 0 8 force
 execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 80.. run particle soul_fire_flame ~ ~1 ~ 0.7 0.8 0.7 0 10 force
 execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 100.. run particle soul_fire_flame ~ ~1 ~ 0.5 0.6 0.5 0.3 60 force
-execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 100.. run summon armor_stand ~ ~ ~ {Tags:["soulReach","custom"],Invisible:1,Marker:1,ArmorItems:[{},{},{},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:[I;-535237157,1476087147,-1761214431,-148423983],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWUwNjkwMmIyNGFiMDUyODRlZDEzMmM1ZDg1MTAxMDk2NDAwMjI2MGE2NTY1MzRhYTQyMGU0YTY4ZGQzMjdiMiJ9fX0="}]}}}}]}
+execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 100.. run summon armor_stand ~ ~ ~ {Tags: ["soulReach", "custom"], Invisible: 1, Marker: 1, ArmorItems: [{}, {}, {}, {id: "minecraft:player_head", Count: 1b, tag: {SkullOwner: {Id: [I; -535237157, 1476087147, -1761214431, -148423983], Properties: {textures: [{Value: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWUwNjkwMmIyNGFiMDUyODRlZDEzMmM1ZDg1MTAxMDk2NDAwMjI2MGE2NTY1MzRhYTQyMGU0YTY4ZGQzMjdiMiJ9fX0="}]}}}}]}
 execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 100.. run playsound minecraft:entity.elder_guardian.curse ambient @a ~ ~1.7 ~ 5 0.7
 execute as @e[type=skeleton,tag=undeadmage] at @s if score @s AttackCharge matches 100.. run scoreboard players set @s AttackCharge -100
 execute as @e[type=skeleton,tag=undeadmage] at @s unless block ~ ~0.1 ~ air run tp @s ~ ~0.2 ~
@@ -424,7 +517,7 @@ execute as @a[gamemode=!creative,gamemode=!spectator] at @s if entity @e[type=ar
 
 
     # Undead Samurai
-execute as @e[type=armor_stand,tag=summonundeadsamurai] at @s run summon wither_skeleton ~ ~ ~ {OnGround:1b,NoGravity:0b,DeathLootTable:"minecraft:empty",LeftHanded:0b,PersistenceRequired:1b,NoAI:1b,CanPickUpLoot:0b,Health:40f,Tags:["undeadsamurai","custom"],HandItems:[{id:"minecraft:netherite_sword",Count:1b,tag:{Enchantments:[{}]}},{}],HandDropChances:[0.000F,0.200F],ArmorItems:[{id:"minecraft:netherite_boots",Count:1b},{id:"minecraft:netherite_leggings",Count:1b},{id:"minecraft:netherite_chestplate",Count:1b},{id:"minecraft:player_head",Count:1b,tag:{SkullOwner:{Id:[I;-1575331611,-1735503954,-1422396401,1047965453],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDhkNTk2M2VmNjBkZDU2NTk2NWNkM2ZkYmY5MTIwMDkyYzQ5MmUxMDU5M2IyNjZhMTk2OTU2YjRhNjRhNWI5ZCJ9fX0="}]}}}}],ArmorDropChances:[0.000F,0.000F,0.000F,0.000F],Attributes:[{Name:generic.max_health,Base:40}]}
+execute as @e[type=armor_stand,tag=summonundeadsamurai] at @s run summon wither_skeleton ~ ~ ~ {OnGround: 1b, NoGravity: 0b, DeathLootTable: "minecraft:empty", LeftHanded: 0b, PersistenceRequired: 1b, NoAI: 1b, CanPickUpLoot: 0b, Health: 40f, Tags: ["undeadsamurai", "custom"], HandItems: [{id: "minecraft:netherite_sword", Count: 1b, tag: {Enchantments: [{}]}}, {}], HandDropChances: [0.000f, 0.200f], ArmorItems: [{id: "minecraft:netherite_boots", Count: 1b}, {id: "minecraft:netherite_leggings", Count: 1b}, {id: "minecraft:netherite_chestplate", Count: 1b}, {id: "minecraft:player_head", Count: 1b, tag: {SkullOwner: {Id: [I; -1575331611, -1735503954, -1422396401, 1047965453], Properties: {textures: [{Value: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDhkNTk2M2VmNjBkZDU2NTk2NWNkM2ZkYmY5MTIwMDkyYzQ5MmUxMDU5M2IyNjZhMTk2OTU2YjRhNjRhNWI5ZCJ9fX0="}]}}}}], ArmorDropChances: [0.000f, 0.000f, 0.000f, 0.000f], Attributes: [{Name: generic.max_health, Base: 40}]}
 execute as @e[type=armor_stand,tag=summonundeadsamurai] at @s run playsound minecraft:music_disc.ward ambient @a ~ ~1 ~ 3 0
 execute as @e[type=armor_stand,tag=summonundeadsamurai] at @s run kill @s
 scoreboard players add @e[type=wither_skeleton,tag=undeadsamurai] lifetime 1
