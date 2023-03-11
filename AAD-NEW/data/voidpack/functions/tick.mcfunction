@@ -2,6 +2,7 @@
 execute unless entity @e[tag=basebarrel,type=armor_stand] run summon armor_stand ~ ~ ~ {Tags: ["basebarrel"], Invisible: 1, Marker: 1, Small: 1}
 execute as @e[tag=basebarrel,type=armor_stand] at @s run setblock ~ ~ ~ barrel{Lock: "Do not remove"} keep
 execute as @e[tag=basebarrel,type=armor_stand] at @s run item replace block ~ ~ ~ container.26 with netherite_sword{display: {Name: '{"text":"Arcane Sword","color":"#03A2FF","italic":false}', Lore: ['{"text":"On hit gain +1 damage, resets after 5 sec","color":"aqua","italic":false}']}, HideFlags: 5, Unbreakable: 1b, CustomModelData: arcanesword, Enchantments: [{id: "minecraft:sharpness", lvl: 13s}]}
+execute as @a at @s unless score @s CutsceneTriggerLevel matches 0.. run scoreboard players set @s CutsceneTriggerLevel 0
 
 
 # Fireball
@@ -206,7 +207,7 @@ execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s Retai
 execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 0 run playsound entity.warden.roar hostile @a ~ ~1 ~ 6 0.8
 execute as @a at @s if score @s DragonBreathCharge matches 1.. if score @s RetainDragonBreathCharge matches ..0 run scoreboard players set @s UnloadDragonBreathCharge 1
 execute as @a at @s if score @s DragonBreathCharge matches ..0 if score @s UnloadDragonBreathCharge matches 1.. run scoreboard players set @s UnloadDragonBreathCharge 0
-execute as @a at @s if score @s UnloadDragonBreathCharge matches 1.. run scoreboard players set @s DragonBreathCD 1200
+execute as @a at @s if score @s UnloadDragonBreathCharge matches 1.. run scoreboard players set @s DragonBreathCD 600
 execute as @a at @s if score @s DragonBreathCD matches 1.. run scoreboard players operation @s DragonBreathCDseconds = @s DragonBreathCD
 execute as @a at @s if score @s DragonBreathCD matches 1.. run scoreboard players operation @s DragonBreathCDseconds /= storeScore 20
 execute as @a at @s if score @s DragonBreathCD matches 1.. run scoreboard players remove @s DragonBreathCD 1
@@ -223,10 +224,68 @@ execute as @e[type=interaction,tag=dragonbreathstaffhitbox] on target if score @
 execute as @a at @s unless entity @p[nbt={SelectedItem:{id:"minecraft:magma_cream",tag:{CustomModelData:dragonbreathstaff}}},distance=..3] run kill @e[type=interaction,tag=dragonbreathstaffhitbox,distance=..3]
 
 
+    # Dragonfall Blade
+execute as @a[nbt={SelectedItem:{id:"minecraft:stone_sword",tag:{CustomModelData:rumblesword}}}] at @s if score @s shift matches 1.. unless entity @e[type=interaction,tag=rumbleswordhitbox,distance=..2] run summon interaction ~ ~0.5 ~ {Tags:["rumbleswordhitbox"],response:1b,height:2,width:2}
+execute as @a at @s unless score @s rumbleCooldownPlayer matches 0.. run scoreboard players set @s rumbleCooldownPlayer 0
+execute as @a at @s unless score @s EmberaxAttackType matches 0.. run scoreboard players set @s EmberaxAttackType 0
+execute as @a at @s if score @s rumbleCooldownPlayer matches 1.. run scoreboard players operation @s rumbleCooldownPlayerSeconds = @s rumbleCooldownPlayer
+execute as @a at @s if score @s rumbleCooldownPlayer matches 1.. run scoreboard players operation @s rumbleCooldownPlayerSeconds /= storeScore 20
+execute as @a at @s if score @s rumbleCooldownPlayer matches 1.. run scoreboard players remove @s rumbleCooldownPlayer 1
+execute as @e[type=interaction,tag=rumbleswordhitbox] on attacker if score @s rumbleCooldownPlayer matches ..0 run scoreboard players add @s Lclick 1
+execute as @a at @s if entity @s[nbt={SelectedItem:{id:"minecraft:stone_sword",tag:{CustomModelData:rumblesword}}}] if entity @e[type=interaction,tag=rumbleswordhitbox,distance=..3] run tp @e[type=interaction,tag=rumbleswordhitbox,limit=1,sort=nearest] ~ ~0.5 ~ facing ^ ^1 ^20
+execute as @e[type=interaction,tag=rumbleswordhitbox] on attacker if score @s Lclick matches 1.. if score @s rumbleCooldownPlayer matches ..0 run scoreboard players set @s EmberaxAttackType 4
+# execute as @e[type=interaction,tag=rumbleswordhitbox] on attacker if score @s Lclick matches 1.. if score @s rumbleCooldownPlayer matches ..0 if score @s FireWandLVL matches 1..2 run summon armor_stand ~ ~1 ~ {Tags:["fireball","fireballLVL2","custom"],Invisible:1,Marker:1}
+# execute as @e[type=interaction,tag=rumbleswordhitbox] on attacker if score @s Lclick matches 1.. if score @s rumbleCooldownPlayer matches ..0 if score @s FireWandLVL matches 3..5 run summon armor_stand ~ ~1 ~ {Tags:["fireball","fireballLVL3","custom"],Invisible:1,Marker:1}
+# execute as @e[type=interaction,tag=rumbleswordhitbox] on attacker if score @s Lclick matches 1.. if score @s rumbleCooldownPlayer matches ..0 if score @s FireWandLVL matches 6..7 run summon armor_stand ~ ~1 ~ {Tags:["fireball","fireballLVL4","custom"],Invisible:1,Marker:1}
+# execute as @e[type=interaction,tag=rumbleswordhitbox] on attacker if score @s Lclick matches 1.. if score @s rumbleCooldownPlayer matches ..0 if score @s FireWandLVL matches 8.. run summon armor_stand ~ ~1 ~ {Tags:["fireball","fireballLVL5","custom"],Invisible:1,Marker:1}
+execute as @e[type=interaction,tag=rumbleswordhitbox] on attacker if score @s Lclick matches 1.. if score @s rumbleCooldownPlayer matches ..0 run scoreboard players set @s rumbleCooldownPlayer 800
+# execute as @e[type=interaction,tag=rumbleswordhitbox] on attacker if score @s Lclick matches 1.. if score @s rumbleCooldownPlayer matches ..0 if score @s FireWandLVL matches 2..3 run scoreboard players set @s rumbleCooldownPlayer 80
+# execute as @e[type=interaction,tag=rumbleswordhitbox] on attacker if score @s Lclick matches 1.. if score @s rumbleCooldownPlayer matches ..0 if score @s FireWandLVL matches 4.. run scoreboard players set @s rumbleCooldownPlayer 60
+execute as @a at @s store result score @s EmberaxYlevel run data get entity @s Pos[1]
+execute as @a at @s if score @s EmberaxAttackType matches 4 run scoreboard players add @s EmberaxRumbleAttack 1
+execute as @a at @s if score @s EmberaxRumbleAttack matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.65
+execute as @a at @s if score @s EmberaxRumbleAttack matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0
+execute as @a at @s if score @s EmberaxRumbleAttack matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.8
+execute as @a at @s if score @s EmberaxRumbleAttack matches 40..140 run playsound block.composter.fill ambient @a ~ ~4 ~ 7 0
+execute as @a at @s if score @s EmberaxRumbleAttack matches 20..160 run playsound minecraft:item.armor.equip_leather ambient @a ~ ~4 ~ 7 0
+execute as @a at @s if score @s EmberaxRumbleAttack matches 30..160 run particle smoke ~ ~6 ~ 10 10 10 0 50 normal
+execute as @a at @s if score @s EmberaxRumbleAttack matches 1..25 run summon armor_stand ~ ~ ~ {Tags: ["rumblePlayer", "custom"], Invisible: 1, Marker: 1}
+scoreboard players add @e[type=armor_stand,tag=rumblePlayer] lifetime 1
+execute as @a at @s if score @s EmberaxRumbleAttack matches 26 run spreadplayers ~ ~ 1 10 false @e[type=armor_stand,tag=rumblePlayer]
+execute as @e[type=armor_stand,tag=rumblePlayer] at @s store result score @s EmberaxYlevel run data get entity @s Pos[1]
+execute as @e[type=armor_stand,tag=rumblePlayer,tag=!rumblePlayerActive] at @s if score @p[scores={EmberaxAttackType=4}] EmberaxRumbleAttack matches 27.. if score @s EmberaxYlevel = @p[scores={EmberaxAttackType=4}] EmberaxYlevel run tag @s add rumblePlayerActive
+execute as @e[type=armor_stand,tag=rumblePlayer,tag=!rumblePlayerActive] at @s if score @p[scores={EmberaxAttackType=4}] EmberaxRumbleAttack matches 27.. unless score @s EmberaxYlevel = @p[scores={EmberaxAttackType=4}] EmberaxYlevel run tp @s ~ ~-1 ~
+execute as @e[type=armor_stand,tag=rumblePlayerActive,tag=!rumblePlayerAIR] at @s if block ~ ~ ~ air run tag @s add rumblePlayerAIR
+execute as @e[type=armor_stand,tag=rumblePlayerActive,tag=!rumblePlayerAIR] at @s run tp @s ~ ~1 ~
+execute as @e[type=armor_stand,tag=rumblePlayerAIR,tag=!rumblePlayerGROUND] at @s unless block ~ ~1 ~ air run tag @s add rumblePlayerGROUND
+execute as @e[type=armor_stand,tag=rumblePlayerAIR,tag=!rumblePlayerGROUND] at @s unless block ~ ~ ~ air run tag @s add rumblePlayerGROUND
+execute as @e[type=armor_stand,tag=rumblePlayerAIR,tag=!rumblePlayerGROUND] at @s run tp @s ~ ~1 ~
+execute as @e[type=armor_stand,tag=rumblePlayer,tag=!rumblePlayerGROUND] at @s if score @p[scores={EmberaxAttackType=4}] EmberaxRumbleAttack matches 260.. run kill @s
+execute as @e[type=armor_stand,tag=rumblePlayer] at @s if score @s lifetime matches 260.. run kill @s
+execute as @e[type=armor_stand,tag=!FallingPlayerRumble,tag=rumblePlayerGROUND] at @s run particle dust 0.5 0.5 0.5 4 ~ ~1 ~ 2 0.2 2 0 60 force
+execute if score @p[scores={EmberaxAttackType=4}] EmberaxRumbleAttack matches 28.. run tag @e[type=armor_stand,tag=rumblePlayerGROUND,limit=1,sort=random] add FallingPlayerRumble
+execute as @e[type=armor_stand,tag=FallingPlayerRumble] at @s run tp @s ~ ~-1 ~
+execute as @e[type=armor_stand,tag=FallingPlayerRumble] at @s unless block ~ ~ ~ air run summon block_display ~-0.5 ~0.5 ~-0.5 {Tags:["fallenStone"],block_state:{Name:"minecraft:cobblestone"},brightness:{sky:15,block:15}}
+scoreboard players add @e[tag=fallenStone,type=block_display] lifetime 1
+execute as @e[type=armor_stand,tag=FallingPlayerRumble] at @s unless block ~ ~ ~ air run playsound entity.generic.explode ambient @a ~ ~ ~ 3 0
+execute as @e[type=armor_stand,tag=FallingPlayerRumble] at @s unless block ~ ~ ~ air run kill @s
+execute as @e[type=!player,type=!armor_stand,type=!interaction,type=!item,type=!block_display] at @s if entity @e[type=armor_stand,tag=FallingPlayerRumble,distance=..2.5] run damage @s 30 minecraft:falling_block by @e[type=armor_stand,tag=FallingPlayerRumble,limit=1,sort=nearest]
+execute as @e[tag=fallenStone,type=block_display] at @s if score @s lifetime matches 100.. run particle poof ~ ~0.5 ~ 0.3 0.3 0.3 0 20 force
+execute as @e[tag=fallenStone,type=block_display] at @s if score @s lifetime matches 100.. run playsound minecraft:entity.iron_golem.damage ambient @a ~ ~1 ~ 0.5 0.55
+execute as @e[tag=fallenStone,type=block_display] at @s if score @s lifetime matches 100.. run kill @s
+execute as @e[type=armor_stand,tag=rumblePlayerGROUND] at @s run particle dust 0.5 0.5 0.5 4 ~ ~1 ~ 0.4 0.4 0.4 0 20 force
+execute as @a at @s if score @s EmberaxRumbleAttack matches 200.. run scoreboard players set @s EmberaxAttackType 0
+execute as @a at @s if score @s EmberaxRumbleAttack matches 200.. run scoreboard players set @s EmberaxRumbleAttack 0
+execute as @a[nbt={SelectedItem:{id:"minecraft:stone_sword",tag:{CustomModelData:rumblesword}}}] at @s if score @s rumbleCooldownPlayer matches 1.. unless score @s EmberaxAttackType matches 4 run title @s actionbar [{"text":"Rumble Cooldown: ","color":"gray"},{"score":{"name":"*","objective":"rumbleCooldownPlayerSeconds"},"color":"blue"}]
+execute as @a[nbt={SelectedItem:{id:"minecraft:stone_sword",tag:{CustomModelData:rumblesword}}}] at @s if score @s rumbleCooldownPlayer matches ..0 if score @s EmberaxAttackType matches ..0 run title @s actionbar {"text":"Rumble Ready For Use! (Shift + Attack)","color":"green"}
+execute as @a[nbt={SelectedItem:{id:"minecraft:stone_sword",tag:{CustomModelData:rumblesword}}}] at @s if score @s rumbleCooldownPlayer matches 1.. if score @s EmberaxAttackType matches 4 run title @s actionbar {"text":"Rumbling!!","color":"red"}
+execute as @a at @s if score @s shift matches ..0 run kill @e[type=interaction,tag=rumbleswordhitbox,distance=..3]
+
+
     # Emberax, the Dragon of the Fire-Scourge
 scoreboard players add @e[type=armor_stand,tag=emberax] lifetime 1
 scoreboard players add @e[type=armor_stand,tag=deadEmberax] DeathAnimation 1
-execute as @e[tag=emberax,type=armor_stand] at @s unless entity @e[type=giant,tag=emberaxhitbox,distance=..10] if score @s lifetime matches 20.. run tag @s add deadEmberax
+execute as @e[tag=emberax,type=armor_stand] at @s unless entity @e[type=giant,tag=emberaxhitbox,distance=..6] if score @s lifetime matches 20.. run tag @s add deadEmberax
 execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 1..100 run particle flash ~ ~1 ~ 2 2 2 1 1 force
 execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 1..100 run particle campfire_cosy_smoke ~ ~1 ~ 0 0 0 0.3 3 force
 execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 1..100 run particle soul ~ ~1 ~ 0 0 0 0.3 3 force
@@ -236,22 +295,22 @@ execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation
 execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 1 run playsound minecraft:block.beacon.deactivate hostile @a ~ ~1 ~ 5 0.6
 execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 1 run bossbar set emberaxhealth players 0
 execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 95.. run particle lava ~ ~1 ~ 2 2 2 1 200 force
-execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 95 run playsound
-execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 100.. run kill @e[tag=emberaxpart,distance=..10]
+# execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 95 run playsound
+execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 100.. run kill @e[tag=emberaxpart,distance=..6]
 execute as @e[tag=deadEmberax,type=armor_stand] at @s if score @s DeathAnimation matches 100.. run kill @s
 execute as @e[tag=emberax,type=armor_stand] at @s run fill ~-1 ~1 ~-1 ~1 ~3 ~1 air replace light
 execute as @e[tag=emberax,type=armor_stand] at @s run setblock ~ ~2 ~ light keep
-execute as @e[tag=emberax,type=armor_stand,tag=!deadEmberax] at @s unless entity @e[type=block_display,tag=emberaxhead1,distance=..10] run summon block_display ^-0.5 ^0.5 ^-0.5 {Tags:["emberaxhead1","emberaxpart"],block_state:{Name:"minecraft:white_concrete"}}
-execute as @e[tag=emberax,type=armor_stand,tag=!deadEmberax] at @s unless entity @e[type=giant,tag=emberaxhitbox,distance=..10] run summon giant ~ ~ ~ {NoGravity: 1b, Silent: 1b, PersistenceRequired: 1b, NoAI: 1b, CanPickUpLoot: 0b, Health: 750f, Tags: ["emberaxhitbox"], ActiveEffects: [{Id: 14, Amplifier: 1b, Duration: 100000000, ShowParticles: 0b}], Attributes: [{Name: generic.max_health, Base: 750}]}
+execute as @e[tag=emberax,type=armor_stand,tag=!deadEmberax] at @s unless entity @e[type=block_display,tag=emberaxhead1,distance=..6] run summon block_display ^-0.5 ^0.5 ^-0.5 {Tags:["emberaxhead1","emberaxpart"],block_state:{Name:"minecraft:white_concrete"}}
+execute as @e[tag=emberax,type=armor_stand,tag=!deadEmberax] at @s unless entity @e[type=giant,tag=emberaxhitbox,distance=..6] run summon giant ~ ~ ~ {NoGravity: 1b, Silent: 1b, PersistenceRequired: 1b, NoAI: 1b, CanPickUpLoot: 0b, Health: 750f, Tags: ["emberaxhitbox"], ActiveEffects: [{Id: 14, Amplifier: 1b, Duration: 100000000, ShowParticles: 0b}], Attributes: [{Name: generic.max_health, Base: 750}]}
 execute as @e[type=armor_stand,tag=emberax,tag=!emberaxActive] at @s if score @s lifetime matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.65
 execute as @e[type=armor_stand,tag=emberax,tag=!emberaxActive] at @s if score @s lifetime matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0
 execute as @e[type=armor_stand,tag=emberax,tag=!emberaxActive] at @s if score @s lifetime matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.8
 execute as @e[type=armor_stand,tag=emberax,tag=!emberaxActive] at @s if score @s lifetime matches 1 run particle flame ~ ~1 ~ 0.2 0.2 0.2 0.3 30 force
 execute as @e[type=armor_stand,tag=emberax,tag=!emberaxActive] at @s if score @s lifetime matches 1 run particle small_flame ~ ~1 ~ 0.2 0.2 0.2 0.3 30 force
-execute as @e[tag=emberax,type=armor_stand] at @s run tp @e[tag=emberaxhead1,type=block_display] ~-0.5 ~0.5 ~-0.5
-execute as @e[tag=emberax,type=armor_stand] at @s run tp @e[tag=emberaxhitbox,type=giant] ~ ~ ~
+execute as @e[tag=emberax,type=armor_stand] at @s run tp @e[tag=emberaxhead1,type=block_display,distance=..6,limit=1,sort=nearest] ~-0.5 ~0.5 ~-0.5
+execute as @e[tag=emberax,type=armor_stand] at @s run tp @e[tag=emberaxhitbox,type=giant,distance=..6,limit=1,sort=nearest] ~ ~ ~
 execute as @e[tag=emberaxhitbox,type=giant] at @s store result bossbar emberaxhealth value run data get entity @s Health
-execute as @e[tag=emberax,type=armor_stand,tag=!deadEmberax] at @s run bossbar set emberaxhealth players @a[distance=..25]
+execute as @e[tag=emberax,type=armor_stand,tag=!deadEmberax] at @s run bossbar set emberaxhealth players @a[distance=..40]
 execute as @e[tag=emberaxActive,type=armor_stand] at @s run tp @s ~ ~ ~ facing entity @p[gamemode=!creative,gamemode=!spectator] feet
 execute as @e[tag=emberax,type=armor_stand] at @s unless score @s EmberaxAttackType matches 0.. run scoreboard players set @s EmberaxAttackType 0
 execute as @e[type=armor_stand,tag=emberax,tag=!emberaxActive] at @s if entity @p[distance=..25,gamemode=!creative,gamemode=!spectator] run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.65
@@ -274,10 +333,10 @@ execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAttac
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags: ["emberaxrandom", "emberaxrandom4", "emberaxpart"], Invisible: 1, Marker: 1}
 execute as @e[type=armor_stand,tag=emberax] at @s run tag @e[tag=emberaxrandom,limit=1,sort=random,distance=..10] add emberaxrandomCHOSEN
 kill @e[type=armor_stand,tag=emberaxrandom,tag=!emberaxrandomCHOSEN]
-execute as @e[type=armor_stand,tag=emberaxrandom1,tag=!deadEmberax] at @s run scoreboard players set @e[type=armor_stand,tag=emberax,distance=..10,limit=1,sort=nearest] EmberaxAttackType 1
-execute as @e[type=armor_stand,tag=emberaxrandom2,tag=!deadEmberax] at @s run scoreboard players set @e[type=armor_stand,tag=emberax,distance=..10,limit=1,sort=nearest] EmberaxAttackType 2
-execute as @e[type=armor_stand,tag=emberaxrandom3,tag=!deadEmberax] at @s run scoreboard players set @e[type=armor_stand,tag=emberax,distance=..10,limit=1,sort=nearest] EmberaxAttackType 3
-execute as @e[type=armor_stand,tag=emberaxrandom4,tag=!deadEmberax] at @s run scoreboard players set @e[type=armor_stand,tag=emberax,distance=..10,limit=1,sort=nearest] EmberaxAttackType 4
+execute as @e[type=armor_stand,tag=emberaxrandom1,tag=!deadEmberax] at @s run scoreboard players set @e[type=armor_stand,tag=emberax,distance=..6,limit=1,sort=nearest] EmberaxAttackType 1
+execute as @e[type=armor_stand,tag=emberaxrandom2,tag=!deadEmberax] at @s run scoreboard players set @e[type=armor_stand,tag=emberax,distance=..6,limit=1,sort=nearest] EmberaxAttackType 2
+execute as @e[type=armor_stand,tag=emberaxrandom3,tag=!deadEmberax] at @s run scoreboard players set @e[type=armor_stand,tag=emberax,distance=..6,limit=1,sort=nearest] EmberaxAttackType 3
+execute as @e[type=armor_stand,tag=emberaxrandom4,tag=!deadEmberax] at @s run scoreboard players set @e[type=armor_stand,tag=emberax,distance=..6,limit=1,sort=nearest] EmberaxAttackType 4
 kill @e[type=armor_stand,tag=emberaxrandom]
 execute as @e[type=armor_stand,tag=emberaxActive] at @s if score @s EmberaxAttackCycle matches 300.. run scoreboard players set @s EmberaxAttackCycle 0
     # Emberax Attack 1: Aimed Fire Breath
@@ -389,6 +448,14 @@ execute as @e[type=armor_stand,tag=emberax,tag=!emberaxEnraged] at @s if score @
 execute as @e[type=armor_stand,tag=emberaxEnraged] at @s if score @s Health matches 201.. run tag @s remove emberaxEnraged
 execute as @e[type=armor_stand,tag=emberaxEnraged,tag=!deadEmberax] at @s run scoreboard players add @s EmberaxAttackCycle 1
 execute as @e[type=armor_stand,tag=emberaxEnraged] at @s run particle angry_villager ~ ~1 ~ 1 1 1 0 1 force
+    # Emberax CUTSCENE
+execute as @a[scores={CutsceneTriggerLevel=..0},gamemode=!creative,gamemode=!spectator] at @s if entity @e[type=armor_stand,tag=emberax,distance=..26] unless entity @e[type=armor_stand,tag=emberaxCutscene,distance=..2] run summon armor_stand ~ ~ ~ {Tags:["emberaxCutscene","custom"],Marker:1,Invisible:1}
+execute as @a[scores={CutsceneTriggerLevel=..0},gamemode=!creative,gamemode=!spectator] at @s if entity @e[type=armor_stand,tag=emberax,distance=..26] run scoreboard players add @s CutsceneTriggerLevel 1
+scoreboard players add @e[type=armor_stand,tag=emberaxCutscene] lifetime 1
+execute as @e[type=armor_stand,tag=emberaxCutscene] at @s run 
+execute as @e[type=armor_stand,tag=emberax] at @s run tp @e[type=armor_stand,tag=emberaxCutscene,scores={lifetime=1}] ^-7 ^7 ^10 facing entity @s feet
+execute as @e[type=armor_stand,tag=emberaxCutscene] at @s run tp @s ^ ^ ^ facing entity @e[type=armor_stand,tag=emberax,limit=1,sort=nearest] feet
+execute as @e[type=armor_stand,tag=emberaxCutscene] at @s if score @s lifetime matches 1.. run tp @s ^-0.1 ^ ^
 
 
     # Dragonoid
@@ -553,8 +620,194 @@ execute as @e[type=wither_skeleton,tag=undeadsamurai] at @s if block ~ ~-0.4 ~ a
 
 
 
+    # Nazar, Dragon of the Soul Flame
+scoreboard players add @e[type=armor_stand,tag=nazar] lifetime 1
+scoreboard players add @e[type=armor_stand,tag=deadNazar] DeathAnimation 1
+execute as @e[tag=nazar,type=armor_stand] at @s unless entity @e[type=giant,tag=nazarhitbox,distance=..6] if score @s lifetime matches 20.. run tag @s add deadNazar
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 1..100 run particle flash ~ ~1 ~ 2 2 2 1 1 force
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 1..100 run particle campfire_cosy_smoke ~ ~1 ~ 0 0 0 0.3 3 force
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 1..100 run particle soul ~ ~1 ~ 0 0 0 0.3 3 force
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 1 run playsound minecraft:entity.wither.death hostile @a ~ ~1 ~ 5 0
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 1 run playsound minecraft:block.beacon.deactivate hostile @a ~ ~1 ~ 5 0.6
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 1 run playsound minecraft:block.beacon.deactivate hostile @a ~ ~1 ~ 5 0.6
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 1 run playsound minecraft:block.beacon.deactivate hostile @a ~ ~1 ~ 5 0.6
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 1 run bossbar set nazarhealth players 0
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 95.. run particle lava ~ ~1 ~ 2 2 2 1 200 force
+# execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 95 run playsound
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 100.. run kill @e[tag=nazarpart,distance=..6]
+execute as @e[tag=deadNazar,type=armor_stand] at @s if score @s DeathAnimation matches 100.. run kill @s
+execute as @e[tag=nazar,type=armor_stand] at @s run fill ~-1 ~1 ~-1 ~1 ~3 ~1 air replace light
+execute as @e[tag=nazar,type=armor_stand] at @s run setblock ~ ~2 ~ light keep
+execute as @e[tag=nazar,type=armor_stand,tag=!deadNazar] at @s unless entity @e[type=block_display,tag=nazarhead1,distance=..6] run summon block_display ^-0.5 ^0.5 ^-0.5 {Tags:["nazarhead1","nazarpart"],block_state:{Name:"minecraft:soul_soil"}}
+execute as @e[tag=nazar,type=armor_stand,tag=!deadNazar] at @s unless entity @e[type=giant,tag=nazarhitbox,distance=..6] run summon giant ~ ~ ~ {NoGravity: 1b, Silent: 1b, PersistenceRequired: 1b, NoAI: 1b, CanPickUpLoot: 0b, Health: 1000f, Tags: ["nazarhitbox"], ActiveEffects: [{Id: 14, Amplifier: 1b, Duration: 100000000, ShowParticles: 0b}], Attributes: [{Name: generic.max_health, Base: 1000},{Name:generic.armor,Base:10},{Name:generic.armor_toughness,Base:10}]}
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s if score @s lifetime matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.65
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s if score @s lifetime matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s if score @s lifetime matches 1 run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.8
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s if score @s lifetime matches 1 run particle soul ~ ~1 ~ 0.2 0.2 0.2 0.3 30 force
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s if score @s lifetime matches 1 run particle soul_fire_flame ~ ~1 ~ 0.2 0.2 0.2 0.3 30 force
+execute as @e[tag=nazar,type=armor_stand] at @s run tp @e[tag=nazarhead1,type=block_display,distance=..6,limit=1,sort=nearest] ~-0.5 ~0.5 ~-0.5
+execute as @e[tag=nazar,type=armor_stand] at @s run tp @e[tag=nazarhitbox,type=giant,distance=..6,limit=1,sort=nearest] ~ ~ ~
+execute as @e[tag=nazarhitbox,type=giant] at @s store result bossbar nazarhealth value run data get entity @s Health
+execute as @e[tag=nazar,type=armor_stand,tag=!deadNazar] at @s run bossbar set nazarhealth players @a[distance=..40]
+execute as @e[tag=nazarActive,type=armor_stand] at @s run tp @s ~ ~ ~ facing entity @p[gamemode=!creative,gamemode=!spectator] feet
+execute as @e[tag=nazar,type=armor_stand] at @s unless score @s EmberaxAttackType matches 0.. run scoreboard players set @s EmberaxAttackType 0
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s if entity @p[distance=..25,gamemode=!creative,gamemode=!spectator] run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.65
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s if entity @p[distance=..25,gamemode=!creative,gamemode=!spectator] run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s if entity @p[distance=..25,gamemode=!creative,gamemode=!spectator] run playsound entity.warden.roar hostile @a ~ ~1 ~ 10 0.8
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s if entity @p[distance=..25,gamemode=!creative,gamemode=!spectator] run particle soul ~ ~1 ~ 0.2 0.2 0.2 0.3 30 force
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s if entity @p[distance=..25,gamemode=!creative,gamemode=!spectator] run particle soul_fire_flame ~ ~1 ~ 0.2 0.2 0.2 0.3 30 force
+execute as @e[type=armor_stand,tag=nazar] at @s if entity @p[distance=..25,gamemode=!creative,gamemode=!spectator] run tag @s add nazarActive
+execute as @e[type=armor_stand,tag=nazar] at @s unless entity @p[distance=..35,gamemode=!creative,gamemode=!spectator] run scoreboard players set @s EmberaxAimedFireAttack 0
+execute as @e[type=armor_stand,tag=nazar] at @s unless entity @p[distance=..35,gamemode=!creative,gamemode=!spectator] run scoreboard players set @s EmberaxSweepFireAttack 0
+execute as @e[type=armor_stand,tag=nazar] at @s unless entity @p[distance=..35,gamemode=!creative,gamemode=!spectator] run scoreboard players set @s EmberaxAttackType 0
+execute as @e[type=armor_stand,tag=nazar] at @s unless entity @p[distance=..35,gamemode=!creative,gamemode=!spectator] run scoreboard players set @s EmberaxRumbleAttack 0
+execute as @e[type=armor_stand,tag=nazar] at @s unless entity @p[distance=..35,gamemode=!creative,gamemode=!spectator] run scoreboard players set @s EmberaxSummonAttack 0
+execute as @e[type=armor_stand,tag=nazar] at @s unless entity @p[distance=..35,gamemode=!creative,gamemode=!spectator] run tag @s remove nazarActive
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarActive] at @s run scoreboard players set @s EmberaxAttackCycle 0
+execute as @e[type=armor_stand,tag=nazarActive,tag=!deadNazar] at @s run scoreboard players add @s EmberaxAttackCycle 1
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags: ["nazarrandom", "nazarrandom1", "nazarpart"], Invisible: 1, Marker: 1}
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags:["nazarrandom","nazarrandom2","nazarpart"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags: ["nazarrandom", "nazarrandom3", "nazarpart"], Invisible: 1, Marker: 1}
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAttackCycle matches 300.. run summon armor_stand ~ ~ ~ {Tags: ["nazarrandom", "nazarrandom4", "nazarpart"], Invisible: 1, Marker: 1}
+execute as @e[type=armor_stand,tag=nazar] at @s run tag @e[tag=nazarrandom,limit=1,sort=random,distance=..10] add nazarrandomCHOSEN
+kill @e[type=armor_stand,tag=nazarrandom,tag=!nazarrandomCHOSEN]
+execute as @e[type=armor_stand,tag=nazarrandom1,tag=!deadNazar] at @s run scoreboard players set @e[type=armor_stand,tag=nazar,distance=..6,limit=1,sort=nearest] EmberaxAttackType 1
+execute as @e[type=armor_stand,tag=nazarrandom2,tag=!deadNazar] at @s run scoreboard players set @e[type=armor_stand,tag=nazar,distance=..6,limit=1,sort=nearest] EmberaxAttackType 2
+execute as @e[type=armor_stand,tag=nazarrandom3,tag=!deadNazar] at @s run scoreboard players set @e[type=armor_stand,tag=nazar,distance=..6,limit=1,sort=nearest] EmberaxAttackType 3
+execute as @e[type=armor_stand,tag=nazarrandom4,tag=!deadNazar] at @s run scoreboard players set @e[type=armor_stand,tag=nazar,distance=..6,limit=1,sort=nearest] EmberaxAttackType 4
+kill @e[type=armor_stand,tag=nazarrandom]
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAttackCycle matches 300.. run scoreboard players set @s EmberaxAttackCycle 0
+    # Nazar Attack 1: Aimed Fire Breath
+execute as @e[type=armor_stand,tag=nazarActive,tag=!deadNazar] at @s if score @s EmberaxAttackType matches 1 run scoreboard players add @s EmberaxAimedFireAttack 1
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAimedFireAttack matches 1 run playsound entity.warden.sonic_charge hostile @a ~ ~1 ~ 10 0
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAimedFireAttack matches 1 run playsound block.beacon.activate hostile @a ~ ~1 ~ 10 0
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAimedFireAttack matches 1..35 run particle soul_fire_flame ^ ^1 ^1 0.1 0.1 0.1 0.01 10 force
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAimedFireAttack matches 20..35 run particle soul_fire_flame ^ ^1 ^1 0.2 0.2 0.2 0.1 10 force
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAimedFireAttack matches 30..35 run particle soul ^ ^1 ^1 0.15 0.15 0.15 0.1 10 force
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAimedFireAttack matches 30..35 run particle large_smoke ^ ^1 ^1 0.2 0.2 0.2 0.1 10 force
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAimedFireAttack matches 35..100 run particle large_smoke ^ ^1 ^1 0.2 0.2 0.2 0.1 10 force
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAimedFireAttack matches 35..100 run summon armor_stand ~ ~ ~ {Tags: ["nazarFire", "custom"], Invisible: 1, Marker: 1}
+scoreboard players add @e[tag=nazarFire,type=armor_stand] lifetime 1
+execute as @e[type=armor_stand,tag=nazar] at @s if entity @e[type=armor_stand,tag=nazarFire,scores={lifetime=1},distance=..6] at @e[type=giant,tag=nazarhitbox,limit=1,sort=nearest] run particle happy_villager ~ ~1 ~ 2 2 2 0 5 force
+execute as @e[tag=nazarFire,type=armor_stand] at @s if score @s lifetime matches 1 run tp @s ^ ^ ^ facing entity @p[gamemode=!creative,gamemode=!spectator] feet
+execute as @e[tag=nazarFire,type=armor_stand] at @s if score @s lifetime matches 2.. run tp @s ^ ^ ^1
+execute as @e[tag=nazarFire,type=armor_stand] at @s run particle soul_fire_flame ~ ~1 ~ 0.5 0.33 0.5 0.07 30 force
+execute as @e[tag=nazarFire,type=armor_stand] at @s run playsound minecraft:block.fire.ambient ambient @a ~ ~1 ~ 10 0.7
+execute as @e[tag=nazarFire,type=armor_stand] at @s run playsound minecraft:block.redstone_torch.burnout ambient @a ~ ~1 ~ 0.7 0
+execute as @e[tag=nazarFire,type=armor_stand] at @s unless block ~ ~ ~ air run particle soul ~ ~1 ~ 0.2 0.2 0.2 0.25 20 force
+execute as @e[tag=nazarFire,type=armor_stand] at @s unless block ~ ~ ~ air run kill @s
+execute as @e[tag=nazarFire,type=armor_stand] at @s unless block ~ ~-1 ~ air unless entity @e[type=armor_stand,tag=fireTrailNazar,distance=..2] run summon armor_stand ~ ~-1.5 ~ {Tags: ["fireTrailNazar"], Marker: 1, Invisible: 1}
+scoreboard players add @e[type=armor_stand,tag=fireTrailNazar] lifetime 1
+execute as @e[type=armor_stand,tag=fireTrailNazar] at @s run particle smoke ~ ~1 ~ 0.3 0.1 0.3 0 4 force
+execute as @e[type=armor_stand,tag=fireTrailNazar] at @s run particle soul_fire_flame ~ ~1 ~ 0.3 0.1 0.3 0.05 4 force
+execute as @a at @s if entity @e[type=armor_stand,tag=fireTrailNazar,distance=..1.7] run damage @s 3 minecraft:hot_floor
+execute as @e[type=armor_stand,tag=fireTrailNazar] at @s if score @s lifetime matches 200.. run kill @s
+execute as @a at @s if entity @e[tag=nazarFire,type=armor_stand,distance=..2] run damage @s 6.5 minecraft:in_fire
+execute as @a at @s if entity @e[tag=nazarFire,type=armor_stand,distance=..2] run effect give @e[type=giant,tag=nazarhitbox,limit=1,sort=nearest] instant_health 1 1 true
+execute as @e[tag=nazarFire,type=armor_stand] at @s if score @s lifetime matches 45.. run kill @s
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAimedFireAttack matches 150.. run scoreboard players set @s EmberaxAttackType 0
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxAimedFireAttack matches 150.. run scoreboard players set @s EmberaxAimedFireAttack 0
+    # Nazar Attack 2: Moving Fire Breath
+execute as @e[type=armor_stand,tag=nazarActive,tag=!deadNazar] at @s if score @s EmberaxAttackType matches 2 run scoreboard players add @s EmberaxSweepFireAttack 1
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSweepFireAttack matches 100.. run scoreboard players set @s EmberaxAttackType 0
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSweepFireAttack matches 100.. run scoreboard players set @s EmberaxSweepFireAttack 0
+    # Nazar Attack 3: Summon Soulfire Burst
+execute as @e[type=armor_stand,tag=nazarActive,tag=!deadNazar] at @s if score @s EmberaxAttackType matches 3 run scoreboard players add @s EmberaxRumbleAttack 1
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 1..60 run particle crit ~ ~1 ~ 0 0 0 2 10 force
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 60 run particle dragon_breath ~ ~1 ~ 0 0 0 0.25 200 force
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 60 run particle soul ~ ~1 ~ 0 0 0 0.25 50 force
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 1 run playsound minecraft:entity.warden.sonic_charge hostile @a ~ ~1 ~ 7 0
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 1..60 run playsound entity.stray.ambient hostile @a ~ ~1 ~ 8 0
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 60 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 60 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 60 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave1","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 60 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave2","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 60 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave3","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..600 if score @s EmberaxRumbleAttack matches 80 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..600 if score @s EmberaxRumbleAttack matches 80 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..600 if score @s EmberaxRumbleAttack matches 80 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave1","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..600 if score @s EmberaxRumbleAttack matches 80 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave2","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..600 if score @s EmberaxRumbleAttack matches 80 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave3","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..450 if score @s EmberaxRumbleAttack matches 100 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..450 if score @s EmberaxRumbleAttack matches 100 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..450 if score @s EmberaxRumbleAttack matches 100 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave1","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..450 if score @s EmberaxRumbleAttack matches 100 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave2","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..450 if score @s EmberaxRumbleAttack matches 100 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave3","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..300 if score @s EmberaxRumbleAttack matches 120 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..300 if score @s EmberaxRumbleAttack matches 120 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..300 if score @s EmberaxRumbleAttack matches 120 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave1","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..300 if score @s EmberaxRumbleAttack matches 120 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave2","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..300 if score @s EmberaxRumbleAttack matches 120 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave3","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..180 if score @s EmberaxRumbleAttack matches 140 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..180 if score @s EmberaxRumbleAttack matches 140 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..180 if score @s EmberaxRumbleAttack matches 140 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave1","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..180 if score @s EmberaxRumbleAttack matches 140 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave2","nazarShockwave","custom"],Invisible:1,Marker:1}
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @e[type=minecraft:armor_stand,tag=nazar,limit=1,sort=nearest] Health matches ..180 if score @s EmberaxRumbleAttack matches 140 run summon armor_stand ~ ~-1 ~ {Tags:["nazarShockwave3","nazarShockwave","custom"],Invisible:1,Marker:1}
+scoreboard players add @e[type=armor_stand,tag=nazarShockwave] lifetime 1
+execute as @e[type=armor_stand,tag=nazarShockwave1] at @s at @e[type=armor_stand,tag=nazar,limit=1,sort=nearest,distance=..6] if score @s lifetime matches 1 run tp @s ~ ~-0.8 ~ facing ^-2 ^-0.8 ^20
+execute as @e[type=armor_stand,tag=nazarShockwave2] at @s at @e[type=armor_stand,tag=nazar,limit=1,sort=nearest,distance=..6] if score @s lifetime matches 1 run tp @s ~ ~-0.8 ~ facing ^ ^-0.8 ^20
+execute as @e[type=armor_stand,tag=nazarShockwave3] at @s at @e[type=armor_stand,tag=nazar,limit=1,sort=nearest,distance=..6] if score @s lifetime matches 1 run tp @s ~ ~-0.8 ~ facing ^2 ^-0.8 ^20
+execute as @e[type=armor_stand,tag=nazarShockwave] at @s if score @s lifetime matches 2.. run tp @s ^ ^ ^1 ~ 0
+execute as @e[type=armor_stand,tag=nazarShockwave] at @s run particle soul_fire_flame ~ ~1 ~ 1 0.1 1 0 30 force
+execute as @e[type=armor_stand,tag=nazarShockwave] at @s run particle smoke ~ ~1 ~ 1 0.1 1 0 30 force
+execute as @e[type=armor_stand,tag=nazarShockwave] at @s if score @s lifetime matches 50.. run kill @s
+execute as @a at @s if entity @e[type=armor_stand,tag=nazarShockwave,distance=..1.4] run damage @s 10 minecraft:sonic_boom by @e[type=armor_stand,tag=nazarShockwave,limit=1,sort=nearest]
+execute as @a at @s if entity @e[type=armor_stand,tag=nazarShockwave,distance=..1.4] run effect give @e[type=giant,tag=nazarhitbox,limit=1,sort=nearest] instant_health 1 4 true
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 180.. run scoreboard players set @s EmberaxAttackType 0
+execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxRumbleAttack matches 180.. run scoreboard players set @s EmberaxRumbleAttack 0
+    # Nazar Attack 4: Summon Soulfire Dragonoids
+# execute as @e[type=armor_stand,tag=nazarActive,tag=!deadNazar] at @s if score @s EmberaxAttackType matches 4 run scoreboard players add @s EmberaxSummonAttack 1
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 1..40 run particle crit ~ ~1 ~ 0 0 0 2 50 force
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 60 run particle dragon_breath ~ ~1 ~ 0 0 0 0.25 200 force
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 60 run particle soul ~ ~1 ~ 0 0 0 0.25 50 force
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 1 run playsound minecraft:entity.warden.sonic_charge hostile @a ~ ~1 ~ 7 0
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 1..60 run playsound entity.stray.ambient hostile @a ~ ~1 ~ 8 0
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 60 run playsound minecraft:entity.elder_guardian.curse hostile @a ~ ~1 ~ 5 0
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 60 run playsound minecraft:entity.firework_rocket.large_blast_far hostile @a ~ ~1 ~ 5 0.7
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 60 run summon armor_stand ~ ~ ~ {Tags: ["", "dragonoidSoul"], Invisible: 1, Marker: 1}
+# scoreboard players add @e[type=armor_stand,tag=dragonoidSoul] lifetime 1
+# execute as @e[type=armor_stand,tag=dragonoidSoul1] at @e[type=armor_stand,tag=nazar,limit=1,sort=nearest] if score @s lifetime matches 1 run tp @s ~ ~ ~ facing entity @p[gamemode=!creative,gamemode=!spectator] feet
+# execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s if score @s lifetime matches 2.. run tp @s ^-0.15 ^0.07 ^0.1
+# execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s run particle soul_fire_flame ~ ~1 ~ 0.1 0.1 0.1 0 5 force
+# execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s run particle soul ~ ~1 ~ 0.1 0.1 0.1 0 5 force
+# execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s if score @s lifetime matches 40.. run summon armor_stand ~ ~-0.5 ~ {Tags: ["dragonoidSummon"], Invisible: 1, Marker: 1}
+# execute as @e[type=armor_stand,tag=dragonoidSoul1] at @s if score @s lifetime matches 40.. run kill @s
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 100 run summon armor_stand ~ ~1 ~ {Tags: ["dragonoidSoul2", "dragonoidSoul"], Invisible: 1, Marker: 1}
+# execute as @e[type=armor_stand,tag=dragonoidSoul2] at @e[type=armor_stand,tag=emberax,limit=1,sort=nearest] if score @s lifetime matches 1 run tp @s ~ ~ ~ facing entity @p[gamemode=!creative,gamemode=!spectator] feet
+# execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s if score @s lifetime matches 2.. run tp @s ^ ^0.07 ^0.1
+# execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s run particle soul_fire_flame ~ ~1 ~ 0.1 0.1 0.1 0 5 force
+# execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s run particle soul ~ ~1 ~ 0.1 0.1 0.1 0 5 force
+# execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s if score @s lifetime matches 40.. run summon armor_stand ~ ~-0.5 ~ {Tags: ["dragonoidSummon"], Invisible: 1, Marker: 1}
+# execute as @e[type=armor_stand,tag=dragonoidSoul2] at @s if score @s lifetime matches 40.. run kill @s
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 140 run summon armor_stand ~ ~1 ~ {Tags: ["dragonoidSoul3", "dragonoidSoul"], Invisible: 1, Marker: 1}
+# execute as @e[type=armor_stand,tag=dragonoidSoul3] at @e[type=armor_stand,tag=emberax,limit=1,sort=nearest] if score @s lifetime matches 1 run tp @s ~ ~ ~ facing entity @p[gamemode=!creative,gamemode=!spectator] feet
+# execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s if score @s lifetime matches 2.. run tp @s ^0.15 ^0.07 ^0.1
+# execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s run particle soul_fire_flame ~ ~1 ~ 0.1 0.1 0.1 0 5 force
+# execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s run particle soul ~ ~1 ~ 0.1 0.1 0.1 0 5 force
+# execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s if score @s lifetime matches 40.. run summon armor_stand ~ ~-0.5 ~ {Tags: ["dragonoidSummon"], Invisible: 1, Marker: 1}
+# execute as @e[type=armor_stand,tag=dragonoidSoul3] at @s if score @s lifetime matches 40.. run kill @s
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 200.. run scoreboard players set @s EmberaxAttackType 0
+# execute as @e[type=armor_stand,tag=nazarActive] at @s if score @s EmberaxSummonAttack matches 200.. run scoreboard players set @s EmberaxSummonAttack 0
+    # Enrage
+execute as @e[type=armor_stand,tag=nazar] at @s store result score @s Health run data get entity @e[type=giant,tag=nazarhitbox,limit=1,sort=nearest] Health
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarEnraged] at @s if score @s Health matches ..450 run playsound minecraft:entity.lightning_bolt.thunder ambient @a ~ ~1 ~ 10 1.6
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarEnraged] at @s if score @s Health matches ..450 run playsound minecraft:entity.lightning_bolt.thunder ambient @a ~ ~1 ~ 10 1.6
+execute as @e[type=armor_stand,tag=nazar,tag=!nazarEnraged] at @s if score @s Health matches ..450 run tag @s add nazarEnraged
+execute as @e[type=armor_stand,tag=nazarEnraged] at @s if score @s Health matches 451.. run tag @s remove nazarEnraged
+execute as @e[type=armor_stand,tag=nazarEnraged,tag=!deadNazar] at @s run scoreboard players add @s EmberaxAttackCycle 1
+execute as @e[type=armor_stand,tag=nazarEnraged] at @s run particle electric_spark ~ ~1 ~ 1.5 1.5 1.5 0.1 5 force
+
+
+
+
+
+
+
+
+
     # Overall Score Cleanup
 scoreboard players set @a Attack 0
+scoreboard players set @a shift 0
 
 
 # TODO: Improve Death Sound Desing of Emberax
@@ -564,3 +817,5 @@ scoreboard players set @a Attack 0
 # playsound minecraft:block.respawn_anchor.charge hostile @a ~ ~1 ~ 5 0     Crystal Sound 2
 # playsound minecraft:entity.camel.eat ambient @a ~ ~1 ~ 3 0                flesh monster sound???
 # Use goat horn for item??
+# wither.break_block 0 sound                                                critical damage to boss or structure
+# warden.emerge 0                                                           summoning big entity (cutscene??)

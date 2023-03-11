@@ -25,6 +25,9 @@ scoreboard objectives add Health dummy
 scoreboard objectives add DeathAnimation dummy
 scoreboard objectives add operationSuccess dummy
 scoreboard objectives add playsoundTimer dummy
+scoreboard objectives add shift custom:sneak_time
+scoreboard objectives add rumbleCooldownPlayer dummy
+scoreboard objectives add rumbleCooldownPlayerSeconds dummy
 
 scoreboard objectives add upgradeFireWand crafted:blaze_rod
 scoreboard objectives add FireWandLVL dummy
@@ -39,10 +42,18 @@ scoreboard objectives add EmberaxRumbleAttack dummy
 scoreboard objectives add EmberaxYlevel dummy
 
 
+scoreboard objectives add CutsceneTriggerLevel dummy
+
+
 bossbar add emberaxhealth {"text":"Emberax, the Dragon of the Fire-Scourge","color":"dark_red"}
 bossbar set emberaxhealth name {"text":"Emberax, the Dragon of the Fire-Scourge","color":"dark_red"}
 bossbar set emberaxhealth max 750
 bossbar set emberaxhealth color red
+
+bossbar add nazarhealth {"text":"Nazar, Dragon of the Soul Flame","color":"aqua"}
+bossbar set nazarhealth name {"text":"Nazar, Dragon of the Soul Flame","color":"aqua"}
+bossbar set nazarhealth max 1000
+bossbar set nazarhealth color purple
 
 bossbar add dragonbreathcharge {"text":"Dragonbreath Charge","color":"gold"}
 bossbar set dragonbreathcharge name {"text":"Dragonbreath Charge","color":"gold"}
